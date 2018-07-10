@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public abstract class Item {
 
-    protected String idNumerico;
+    protected int idNumerico;
     protected String nome;
     protected double preco;
     protected String categoria;
-    protected HashMap <String,String> mapaLocalPrecos;
+    protected HashMap <String,Double> mapaLocalPrecos;
 
 	public Item(String nome,double valor){
 	    this.idNumerico += 1;
@@ -25,16 +25,20 @@ public abstract class Item {
         return nome;
     }
 
-    public String getIdNumerico() {
+    public int getIdNumerico() {
         return idNumerico;
+    }
+    
+    public String getCategoria() {
+        return categoria;
+    }
+    
+    public void setCategoria(String categoria) {
+    	this.categoria = categoria;
     }
 
     public void setPreco(double preco) {
         this.preco = preco;
-    }
-
-    public void setIdNumerico(String idNumerico) {
-        this.idNumerico = idNumerico;
     }
 
     public void setNome(String nome) {
@@ -47,7 +51,7 @@ public abstract class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idNumerico == null) ? 0 : idNumerico.hashCode());
+		result = prime * result + idNumerico;
 		return result;
 	}
 
@@ -60,12 +64,10 @@ public abstract class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (idNumerico == null) {
-			if (other.idNumerico != null)
-				return false;
-		} else if (!idNumerico.equals(other.idNumerico))
+		if (idNumerico != other.idNumerico)
 			return false;
 		return true;
 	}
+
     
 }

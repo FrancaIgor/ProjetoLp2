@@ -1,8 +1,13 @@
 package projeto;
-
+/**
+ * Representação da Classe item para itens comprados em quantidades de medida.
+ * @author Igor Franca
+ *
+ */
 public class itemPorQuantidade extends Item{
-
+	
     private int quantidade;
+    private String unidadeDeMedida;
 
     public itemPorQuantidade(String nome, double preco, int quantidade) {
         super(nome, preco);
@@ -11,7 +16,7 @@ public class itemPorQuantidade extends Item{
 
     @Override
     public double calculaPreco() {
-        return preco * quantidade;
+        return preco;
     }
 
     @Override
