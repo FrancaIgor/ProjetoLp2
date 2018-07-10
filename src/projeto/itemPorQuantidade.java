@@ -4,7 +4,7 @@ package projeto;
  * @author Igor Franca
  *
  */
-public class itemPorQuantidade extends Item{
+public class itemPorQuantidade extends Item {
 	
     private int quantidade;
     private String unidadeDeMedida;
@@ -21,6 +21,6 @@ public class itemPorQuantidade extends Item{
 
     @Override
     public String toString() {
-        return this.idNumerico + ". " + this.nome + ", " + this.categoria + ", Preco: " + this.mapaLocalPrecos;
+        return this.idNumerico + ". " + this.nome + ", " + this.categoria + this.quantidade +  " "  + this.unidadeDeMedida + ", Preco: " + this.mapaLocalPrecos;
     }
 }
