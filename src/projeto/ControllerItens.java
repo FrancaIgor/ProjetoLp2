@@ -1,3 +1,4 @@
+package projeto;
 import java.util.HashMap;
 
 public class ControllerItens {
@@ -7,7 +8,7 @@ public class ControllerItens {
 	public String adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida,
 			String localDeCompra, double preco) {
 		String statusCadastroQtd = "";
-		ItemPorQtd novoItemQtd = new ItemPorQtd(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
+		Item novoItemQtd = new ItemPorQtd(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
 
 		colecaoItens.put(Item.getIdNumerico(), novoItemQtd);
 		statusCadastroQtd = "CADASTRO REALIZADO";
@@ -17,7 +18,7 @@ public class ControllerItens {
 
 	public String adionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
 		String statusCadastroUnidade = "";
-		ItemPorUnidade novoItemUnidade = new ItemPorUnidade(nome, categoria, localDeCompra, unidade, preco);
+		Item novoItemUnidade = new ItemPorUnidade(nome, categoria, localDeCompra, unidade, preco);
 		colecaoItens.put(Item.getIdNumerico(), novoItemUnidade);
 		statusCadastroUnidade = "CADASTRO REALIZADO";
 
@@ -26,7 +27,7 @@ public class ControllerItens {
 
 	public String adionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
 		String statusCadastroQuilo = "";
-		ItemPorQuilo novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
+		Item novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
 		colecaoItens.put(Item.getIdNumerico(), novoItemQuilo);
 		statusCadastroQuilo = "CADASTRO REALIZADO";
 
@@ -47,16 +48,16 @@ public class ControllerItens {
 			break;
 
 		case "quantidade":
-			if (item instanceof ItemPorQtd) {
+			if (item instanceof ItemPorQuantidade) {
 				int valorInt = Integer.parseInt(novoValor);
-				((ItemPorQtd) item).setQuantidade(valorInt);
+				((ItemPorQuantidade) item).setQuantidade(valorInt);
 			}
 			break;
 
 		case "unidade de medida":
 
-			if (item instanceof ItemPorQtd) {
-				((ItemPorQtd) item).setUnidadeDeMedida(novoValor);
+			if (item instanceof ItemPorQuantidade) {
+				((ItemPorQuantidade) item).setUnidadeDeMedida(novoValor);
 			}
 			break;
 

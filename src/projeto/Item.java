@@ -18,19 +18,19 @@ public abstract class Item {
 	public abstract double calculaPreco();
 
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
-    public int getIdNumerico() {
+    public static int getIdNumerico() {
         return idNumerico;
     }
     
     public String getCategoria() {
-        return categoria;
+        return this.categoria;
     }
     
     public void setCategoria(String categoria) {
@@ -69,5 +69,4 @@ public abstract class Item {
 		return true;
 	}
 
-    
 }

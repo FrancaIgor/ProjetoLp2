@@ -1,8 +1,8 @@
 package projeto;
 
-public class itemPorUnidade extends Item{
+public class ItemPorUnidade extends Item{
 
-    public itemPorUnidade(String idNumerico, String nome, double valor) {
+    public ItemPorUnidade(String idNumerico, String nome, double valor) {
         super(nome, valor);
     }
 

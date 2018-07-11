@@ -4,12 +4,12 @@ package projeto;
  * @author Igor Franca
  *
  */
-public class itemPorQuantidade extends Item {
+public class ItemPorQuantidade extends Item {
 	
     private int quantidade;
     private String unidadeDeMedida;
 
-    public itemPorQuantidade(String nome, double preco, int quantidade) {
+    public ItemPorQuantidade(String nome, double preco, int quantidade) {
         super(nome, preco);
         this.quantidade = quantidade;
     }

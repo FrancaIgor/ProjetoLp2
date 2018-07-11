@@ -1,10 +1,10 @@
 package projeto;
 
-public class itemPorQuilo extends Item{
+public class ItemPorQuilo extends Item{
 
     private double peso;
 
-    public itemPorQuilo(String nome, double valor,double peso) {
+    public ItemPorQuilo(String nome, double valor,double peso) {
         super(nome, valor);
         this.peso = peso;
     }
