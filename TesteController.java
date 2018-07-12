@@ -17,7 +17,7 @@ public class TesteController {
 	}
 	
 	@Test
-	public void testadicionaItemPorQtd() {
+	public void testAdicionaItemPorQtd() {
 		assertEquals("CADASTRO REALIZADO",controllerItem.adicionaItemPorQtd("salgadinho", "produto industrializado", 3, "kg", "rede Lascados", 2.50));
 		
 	}
@@ -46,6 +46,24 @@ public class TesteController {
 	@Test 
 	public void testDeletaItem() {
 		controllerItem.deletaItem("1");
+	}
+	
+	@Test
+	public void testErroAdicionaItemPorQtd() {
+		assertEquals("CADASTRO Ñ REALIZADO",controllerItem.adicionaItemPorQtd("", "produto industrializado", 3, "kg", "rede Lascados", 2.50));
+		assertEquals("CADASTRO Ñ REALIZADO",controllerItem.adicionaItemPorQtd(null, "produto industrializado", 3, "kg", "rede Lascados", 2.50));
+	}
+	
+	@Test
+	public void testErroAdionaItemPorUnidade() {
+		assertEquals("CADASTRO Ñ REALIZADO", controllerItem.adionaItemPorUnidade("   ", "não industralizados", 3, "mercado do seu zé", 0.75));
+		assertEquals("CADASTRO Ñ REALIZADO", controllerItem.adionaItemPorUnidade(null, "não industralizados", 3, "mercado do seu zé", 0.75));
+	}
+	
+	@Test
+	public void testErroItemPorQuilo() {
+		assertEquals("CADASTRO Ñ REALIZADO", controllerItem.adionaItemPorQuilo("", "produto não industrializado", 2.5, "feira da prata", 3.50));
+		assertEquals("CADASTRO Ñ REALIZADO", controllerItem.adionaItemPorQuilo(null, "produto não industrializado", 2.5, "feira da prata", 3.50));
 	}
 
 }
