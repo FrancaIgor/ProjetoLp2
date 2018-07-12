@@ -1,9 +1,17 @@
 package projeto;
 
+import easyaccept.EasyAccept;
+
 public class Facade {
 
 	ControllerItens novoController = new ControllerItens();
 
+	public static void main (String[] args) {
+		args = new String[] {"projeto.Facade", "testes/use_case1_exception.txt"};
+		
+		EasyAccept.main(args);
+	}
+	
 	public String adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida,
 			String localDeCompra, double preco) {
 		return novoController.adicionaItemPorQtd(nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
