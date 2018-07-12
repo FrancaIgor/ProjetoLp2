@@ -2,8 +2,8 @@ package projeto;
 
 public class ItemPorUnidade extends Item{
 
-    public ItemPorUnidade(String idNumerico, String nome, double valor) {
-        super(nome, valor);
+    public ItemPorUnidade(String nome, String categoria, String localDeCompra, double valor, double preco) {
+        super(nome, categoria, localDeCompra, valor);
     }
 
     @Override
@@ -13,6 +13,6 @@ public class ItemPorUnidade extends Item{
 
     @Override
     public String toString() {
-        return this.idNumerico + ". " + this.nome + ", " + this.categoria + ", Preco: " + this.mapaLocalPrecos;
+        return super.toString() + ", Preco: " + this.mapaLocalPrecos;
     }
 }

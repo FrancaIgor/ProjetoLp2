@@ -5,12 +5,10 @@ public class ControllerItens {
 
 	HashMap<Integer, Item> colecaoItens = new HashMap<Integer, Item>();
 
-	public String adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida,
-			String localDeCompra, double preco) {
+	public String adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra, double preco) {
 		String statusCadastroQtd = "";
-		Item novoItemQtd = new ItemPorQtd(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
-
-		colecaoItens.put(Item.getIdNumerico(), novoItemQtd);
+		Item novoItemQtd = new ItemPorQuantidade(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
+		colecaoItens.put(novoItemQtd.getIdItem(), novoItemQtd);
 		statusCadastroQtd = "CADASTRO REALIZADO";
 
 		return statusCadastroQtd;
@@ -19,7 +17,7 @@ public class ControllerItens {
 	public String adionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
 		String statusCadastroUnidade = "";
 		Item novoItemUnidade = new ItemPorUnidade(nome, categoria, localDeCompra, unidade, preco);
-		colecaoItens.put(Item.getIdNumerico(), novoItemUnidade);
+		colecaoItens.put(novoItemUnidade.getIdItem(), novoItemUnidade);
 		statusCadastroUnidade = "CADASTRO REALIZADO";
 
 		return statusCadastroUnidade;
@@ -28,7 +26,7 @@ public class ControllerItens {
 	public String adionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
 		String statusCadastroQuilo = "";
 		Item novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
-		colecaoItens.put(Item.getIdNumerico(), novoItemQuilo);
+		colecaoItens.put(novoItemQuilo.getIdItem(), novoItemQuilo);
 		statusCadastroQuilo = "CADASTRO REALIZADO";
 
 		return statusCadastroQuilo;
@@ -65,7 +63,7 @@ public class ControllerItens {
 	}
 
 	public void adicionaPrecoItem(int idNumerico, String mercado, double preco) {
-		colecaoItens.get(idNumerico).adionaPreco(mercado, preco);
+		colecaoItens.get(idNumerico).adicionaPreco(mercado, preco);
 
 	}
 

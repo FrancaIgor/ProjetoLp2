@@ -4,8 +4,8 @@ public class ItemPorQuilo extends Item{
 
     private double peso;
 
-    public ItemPorQuilo(String nome, double valor,double peso) {
-        super(nome, valor);
+    public ItemPorQuilo(String nome, String categoria, String localDeCompra, double peso, double preco) {
+        super(nome, categoria, localDeCompra, preco);
         this.peso = peso;
     }
 
@@ -16,6 +16,6 @@ public class ItemPorQuilo extends Item{
 
     @Override
     public String toString() {
-    return this.idNumerico + ". " + this.nome + ", " + this.categoria + ", Preco por quilo: " + this.mapaLocalPrecos;
+    	return super.toString() + ", Preco por quilo: " + this.mapaLocalPrecos;
     }
 }
