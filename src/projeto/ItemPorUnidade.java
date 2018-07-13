@@ -1,9 +1,14 @@
 package projeto;
 
-public class ItemPorUnidade extends Item{
-
-    public ItemPorUnidade(String nome, String categoria, String localDeCompra, double valor, double preco) {
-        super(nome, categoria, localDeCompra, valor);
+public class ItemPorUnidade extends Item {
+	
+    public ItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
+    	
+        super(nome, categoria, localDeCompra, preco);
+        
+        if (unidade < 0) {
+        	throw new IllegalArgumentException("valor de unidade nao pode ser menor que zero.");
+        }
     }
 
     @Override
