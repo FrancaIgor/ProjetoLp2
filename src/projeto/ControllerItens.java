@@ -1,5 +1,7 @@
 package projeto;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
 /**
  * 
  * @author Victor Braga, 
@@ -10,48 +12,111 @@ public class ControllerItens {
 
 	private HashMap<Integer, Item> colecaoItens = new HashMap<Integer, Item>();
 
-	public String adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra, double preco) {
-		
-		String statusCadastroQtd = "";
+	/**
+	 * 
+	 * Metodo que adiciona um item que se compra com uma quantidade fixa. Ex:
+	 * Algodão branco 200g
+	 * 
+	 * @param nome
+	 *            eh o nome do que descreve o produto
+	 * @param categoria
+	 *            que define sua finalidade Ex: No caso de algoda seria: higiene
+	 *            pessoal
+	 * @param qtd
+	 *            um inteiro que diz a quantidade que esse produto contem
+	 * @param unidadeDeMedida
+	 *            unidade de medida usada por esse produto
+	 * @param localDeCompra
+	 *            Local onde o produto foi comprado
+	 * @param preco
+	 *            preco do item
+	 * @return retorna o idNumerico desse produto
+	 */
+	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra, double preco) {
+		Item novoItemQtd;
+
 		try {
-			Item novoItemQtd = new ItemPorQuantidade(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
-			colecaoItens.put(novoItemQtd.getIdItem(), novoItemQtd);
-			statusCadastroQtd = "CADASTRO REALIZADO";
+			novoItemQtd = new ItemPorQuantidade(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
 			
 		} catch (Exception e) {
-			return "Erro no cadastro de item: " + e.getMessage();
+			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
-		return statusCadastroQtd;
+		colecaoItens.put(novoItemQtd.getIdItem(), novoItemQtd);
+		return novoItemQtd.getIdItem();
 	}
 
-	public String adionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		
-		String statusCadastroUnidade = "";
+	/**
+	 * Metodo que adiciona um item que se compra por unidade. Ex: 1 queijo minas.
+	 * 
+	 * @param nome
+	 *            eh o nome do que descreve o produto
+	 * @param categoria
+	 *            que define sua finalidade Ex: 1 queijo minhas: Alimntos
+	 *            industrializdos
+	 * @param unidade
+	 *            um numero inteiro que diz a quantidade de itens daquele que foi
+	 *            comprada
+	 * @param localDeCompra
+	 *            Local onde o produto foi comprado
+	 * @param preco
+	 *            preco do item
+	 * @return retorna o int idNumerico que identifica o item.
+	 */
+	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
+		Item novoItemUnidade;
+
 		try {
-			Item novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
-			colecaoItens.put(novoItemUnidade.getIdItem(), novoItemUnidade);
-			statusCadastroUnidade = "CADASTRO REALIZADO";
+			novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
 			
 		} catch (Exception e) {
-			return "Erro no cadastro de item: " + e.getMessage();
+			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
-		return statusCadastroUnidade;
+		colecaoItens.put(novoItemUnidade.getIdItem(), novoItemUnidade);
+		return novoItemUnidade.getIdItem();
 	}
 
-	public String adionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
+	/**
+	 * 
+	 * 
+	 * Metodo que adiciona um item que se compra por peso. Ex: 200g de carne
+	 * 
+	 * @param nome
+	 *            eh o nome do que descreve o produto
+	 * @param categoria
+	 *            que define sua finalidade Ex: 200g de picinha: Alimntos nao
+	 *            industrializdos
+	 * @param kg
+	 *            um numero real que diz a quantidade que foi comprada desse produto
+	 * @param localDeCompra
+	 *            Local onde o produto foi comprado
+	 * @param preco
+	 *            preco do item
+	 * @return retorna o int idNumerico que identifica o item.
+	 */
+	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
+		Item novoItemQuilo;
 		
-		String statusCadastroQuilo = "";
 		try {
-			Item novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
-			colecaoItens.put(novoItemQuilo.getIdItem(), novoItemQuilo);
-			statusCadastroQuilo = "CADASTRO REALIZADO";
+			novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
 			
 		} catch (Exception e) {
-			return "Erro no cadastro de item: " + e.getMessage();
+			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
-		return statusCadastroQuilo;
+		colecaoItens.put(novoItemQuilo.getIdItem(), novoItemQuilo);
+		return novoItemQuilo.getIdItem();
 	}
 
+
+	/**
+	 * Metodo que permite modificar os parametros de um item, exceto seu idNumerico
+	 * 
+	 * @param idNumerico
+	 *            inteiro que identifica cada item e nao pode ser alterado
+	 * @param atributo
+	 *            string que leva o mesmo nome do atributo que se quer moficar
+	 * @param novoValor
+	 *            String que recebe a nova String que se quer alterar.
+	 */
 	public void atualizaItem(int idNumerico, String atributo, String novoValor) {
 		Item item = this.colecaoItens.get(idNumerico);
 		
@@ -72,7 +137,11 @@ public class ControllerItens {
 			break;
 
 		case "categoria":
-			colecaoItens.get(idNumerico).setCategoria(novoValor);
+			try {
+				colecaoItens.get(idNumerico).setCategoria(novoValor);
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
+			}
 			break;
 
 		case "quantidade":
@@ -91,23 +160,31 @@ public class ControllerItens {
 
 		}
 	}
-	
-	public void verificaItem(int idNumerico) {
-		
+
+	/**
+	 * Metodo que apos cadastrar um item, permite que se atribua um preco a esse
+	 * item e o associe a um local de compra esse metodo pode armazenar varios
+	 * precos e seus respectivos locais de compra. Um mapa eh usado para armazenar
+	 * estes dados.
+	 * 
+	 * @param idNumerico
+	 *            int que identifica cada produto e eh imutavel
+	 * 
+	 * @param localDeCompra
+	 *            local onde o produto foi comprado com aquele determinado preco
+	 * 
+	 * @param preco
+	 *            preco do protudo no local de compra especificado
+	 */
+	public void adicionaPrecoItem(int idNumerico, String localDeCompra, double preco) {
 		if (idNumerico < 0) {
-			throw new IllegalArgumentException("id de item invalido");
+			throw new IllegalArgumentException("Erro no cadastro de preco: id de item invalido.");
 		}
 		Item itemAux = colecaoItens.get(idNumerico);
-		
 		if (itemAux == null) {
-			throw new NullPointerException("item nao existe.");
+			throw new NullPointerException("Erro no cadastro de preco: item nao existe.");
 		}
-	}
-	
-	public void adicionaPrecoItem(int idNumerico, String localDeCompra, double preco) {
-
 		try {
-			this.verificaItem(idNumerico);
 			this.colecaoItens.get(idNumerico).adicionaPreco(localDeCompra, preco);
 			
 		} catch (Exception e) {
@@ -115,22 +192,42 @@ public class ControllerItens {
 		}
 	}
 
+	/**
+	 * Metodo que retorna a representacao String do item correspondente ao
+	 * idNumerico passado
+	 * 
+	 * @param idNumerico
+	 *            inteiro que identifica o item.
+	 * @return retorna a representacao String do item correspondente ao idNumerico
+	 */
 	public String exibeItem(int idNumerico) {
 		
 		if (idNumerico < 0) {
 			throw new IllegalArgumentException("Erro na listagem de item: id invalido.");
 		}
 		Item auxiliar = colecaoItens.get(idNumerico);
-		
 		if (auxiliar == null) {
-			throw new NullPointerException("Erro na listagem de item: item nao existe");
+			throw new NullPointerException("Erro na listagem de item: item nao existe.");
 		}
 		return auxiliar.toString();
 	}
 	
+	/**
+	 * Metodo que recebe o idNumerico do item e atraves dele o deleta do mapa de
+	 * intens cadastrados
+	 * 
+	 * @param idNumerico
+	 *            int que intenfica cada item e eh imutavel.
+	 */
 	public void deletaItem(String idNumerico) {
 		int intIdNumerico = Integer.parseInt(idNumerico);
 		colecaoItens.remove(intIdNumerico);
 	}
 
+	public String getItem(int idNumerico) {
+		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+		itensOrdenados.addAll((Collection<? extends Item>) colecaoItens);
+		itensOrdenados.sort();
+		return itensOrdenados.get(idNumerico);
+	}
 }

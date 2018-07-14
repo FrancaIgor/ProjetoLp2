@@ -1,5 +1,4 @@
 package projeto;
-
 /**
  * Representação da Classe item para itens comprados em quantidades de medida.
  * 
@@ -14,7 +13,12 @@ public class ItemPorQuantidade extends Item {
 	public ItemPorQuantidade(String nome, String categoria, String localDeCompra, String unidadeDeMedida, int qtd, double preco) {
 		
 		super(nome, categoria, localDeCompra, preco);
-		
+		if (qtd < 0) {
+			throw new IllegalArgumentException("valor de quantidade nao pode ser menor que zero.");
+		}
+		if (unidadeDeMedida.trim().isEmpty() || unidadeDeMedida == null) {
+			throw new IllegalArgumentException("unidade de medida nao pode ser vazia ou nula.");
+		}
 		this.setUnidadeDeMedida(unidadeDeMedida);
 		this.setQuantidade(qtd);
 	}
@@ -25,17 +29,10 @@ public class ItemPorQuantidade extends Item {
 	}
 
 	public void setQuantidade(int qtd) {
-		if (qtd < 0) {
-			throw new IllegalArgumentException("valor de quantidade nao pode ser vazia ou nula.");
-		}
 		this.quantidade = qtd;
 	}
 
 	public void setUnidadeDeMedida(String novoValor) {
-		
-		if (unidadeDeMedida.trim().isEmpty() || unidadeDeMedida == null) {
-			throw new IllegalArgumentException("unidade de medida nao pode ser vazia ou nula.");
-		}
 		this.unidadeDeMedida = novoValor;
 	}
 

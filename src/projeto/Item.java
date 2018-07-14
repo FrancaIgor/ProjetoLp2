@@ -38,9 +38,9 @@ public abstract class Item {
 	
 	public class nameComparator implements Comparator<Item> {
         public int compare(final Item item1, final Item item2) {
-                return item1.getNome().compareToIgnoreCase(item2.getNome());
-    }
-}	
+        	return item1.getNome().compareToIgnoreCase(item2.getNome());
+        }
+	}
 	
     public double getPreco() {
         return this.preco;
