@@ -1,5 +1,6 @@
 package projeto;
 
+import java.util.Comparator;
 import java.util.HashMap;
 
 public abstract class Item {
@@ -34,6 +35,12 @@ public abstract class Item {
 		}
 		mapaLocalPrecos.put(localDeCompra, preco);
 	}
+	
+	public class nameComparator implements Comparator<Item> {
+        public int compare(final Item item1, final Item item2) {
+                return item1.getNome().compareToIgnoreCase(item2.getNome());
+    }
+}	
 	
     public double getPreco() {
         return this.preco;
