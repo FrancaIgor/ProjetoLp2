@@ -1,7 +1,6 @@
 package projeto;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+
 /**
  * 
  * @author Victor Braga, 
@@ -9,7 +8,13 @@ import java.util.Collection;
  *
  */
 public class ControllerItens {
-
+	/**
+	 * Metodo de comparacao para ordenamento.
+	 */
+	private String comparador;
+	/**
+	 * Mapa de itens, a chave um inteiro correspondente ao id do item no value.
+	 */
 	private HashMap<Integer, Item> colecaoItens = new HashMap<Integer, Item>();
 
 	/**
@@ -223,11 +228,28 @@ public class ControllerItens {
 		int intIdNumerico = Integer.parseInt(idNumerico);
 		colecaoItens.remove(intIdNumerico);
 	}
+	/**
+	 * Possibilita a escolha do tipo do ordenamento que sera aplicado na lista de cenarios cadastrados.
+	 *
+	 * @param ordem tipo de ordenamento.
+	 */
+	public void alteraOrdem(String ordem) {
+		String erro = "Erro ao alterar ordem: ";
 
-	public String getItem(int idNumerico) {
-		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+		if (ordem == null) throw new NullPointerException(erro + "Ordem nao pode ser vazia ou nula");
+		if (ordem.equals(""))
+			throw new IllegalArgumentException(erro + "Ordem nao pode ser vazia ou nula");
+
+		if (ordem.equals("cadastro") || ordem.equals("nome") || ordem.equals("apostas")) this.comparador = ordem;
+
+		else throw new IllegalArgumentException(erro + "Ordem invalida");
+
+	}
+	public String getItemPorCategoria() {
+		List<Item> itensOrdenados = new ArrayList<>(colecaoItens.;);
 		itensOrdenados.addAll((Collection<? extends Item>) colecaoItens);
-		itensOrdenados.sort();
-		return itensOrdenados.get(idNumerico);
+		Collections.sort(itensOrdenados, new ComparatorNome());
+		Collections.sort(itensOrdenados, new ComparatorPreco());;
+		return itensOrdenados.toString();
 	}
 }
