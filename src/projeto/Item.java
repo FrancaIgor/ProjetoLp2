@@ -1,18 +1,24 @@
 package projeto;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Set;
+
+import javax.swing.RowFilter.Entry;
 
 public abstract class Item {
 
-    private static int idNumerico = 0;
+    private static int idNumerico = 1;
     protected int idItem;
     protected String nome;
     protected double preco;
-    protected String categoria;
+    protected CategoriasEnum categoria;
     protected HashMap <String,Double> mapaLocalPrecos;
 
 	public Item(String nome, String categoria, String localDeCompra, double preco){
+		String.valueOf(preco);
 
 		this.setNome(nome);
 		this.setCategoria(categoria);
@@ -55,14 +61,19 @@ public abstract class Item {
     }
     
     public String getCategoria() {
-        return this.categoria;
+        return this.categoria.toString();
     }
     
     public void setCategoria(String categoria) {
 		if (categoria.trim().isEmpty() || categoria == null) {
 			throw new IllegalArgumentException("categoria nao pode ser vazia ou nula.");
 		}
-    	this.categoria = categoria;
+		
+		try {
+			this.categoria = CategoriasEnum.valueOf(categoria.toUpperCase().replaceAll(" ", "_"));
+		} catch (Exception e) {
+			throw new IllegalArgumentException("categoria nao existe.");
+		}
     }
 
     public void setPreco(double preco) {
@@ -92,6 +103,16 @@ public abstract class Item {
 		result = prime * result + idItem;
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
+	}
+	
+	public String getExibirPrecos() {
+		String saida = "<";
+		Set<java.util.Map.Entry<String, Double>> auxiliar = mapaLocalPrecos.entrySet();
+		for (java.util.Map.Entry<String, Double> entry : auxiliar) {
+			saida += entry.getKey() + ", R$ " + String.format("%.2f",entry.getValue()).replace(".",",") + ";";
+			
+		}
+		return saida + ">";
 	}
 
 	@Override

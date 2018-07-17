@@ -145,14 +145,19 @@ public class ControllerItens {
 			try {
 				colecaoItens.get(idNumerico).setCategoria(novoValor);
 			} catch (Exception e) {
-				throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
+				throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 			}
 			break;
 
 		case "quantidade":
 			if (item instanceof ItemPorQuantidade) {
+				try {
 				int valorInt = Integer.parseInt(novoValor);
 				((ItemPorQuantidade) item).setQuantidade(valorInt);
+				} catch (Exception e) {
+					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
+				}
+				
 			}
 			break;
 
@@ -162,6 +167,33 @@ public class ControllerItens {
 				((ItemPorQuantidade) item).setUnidadeDeMedida(novoValor);
 			}
 			break;
+			
+		case "unidade":
+			
+			if (item instanceof ItemPorUnidade) {
+				try {
+					((ItemPorUnidade) item).setunidade(Integer.parseInt(novoValor));
+				} catch (Exception e) {
+					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
+				}
+				
+			}
+			break;
+			
+		case "kg":
+
+			if (item instanceof ItemPorQuilo) {
+				try {
+					((ItemPorQuilo) item).setPeso(Double.parseDouble(novoValor));
+				} catch (Exception e) {
+					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
+				}
+				
+			}
+			break;
+		
+		default:
+			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao existe.");
 
 		}
 	}
@@ -207,6 +239,7 @@ public class ControllerItens {
 	 */
 	public String exibeItem(int idNumerico) {
 		
+		String saida = "";
 		if (idNumerico < 0) {
 			throw new IllegalArgumentException("Erro na listagem de item: id invalido.");
 		}

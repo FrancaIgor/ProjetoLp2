@@ -6,21 +6,34 @@ public class ItemPorQuilo extends Item {
 
     public ItemPorQuilo(String nome, String categoria, String localDeCompra, double peso, double preco) {
     	
-        super(nome, categoria, localDeCompra, preco);
-        
-        if (peso < 0) {
+        super(nome, categoria, localDeCompra, preco);       
+        setPeso(peso);;
+    }
+    
+    
+
+    public double getPeso() {
+		return peso;
+	}
+
+
+
+	public void setPeso(double peso) {
+		if (peso < 0) {
         	throw new IllegalArgumentException("valor de quilos nao pode ser menor que zero.");
         }
-        this.peso = peso;
-    }
+		this.peso = peso;
+	}
 
-    @Override
+
+
+	@Override
     public double calculaPreco() {
         return preco * peso;
     }
 
     @Override
     public String toString() {
-    	return super.toString() + ", Preco por quilo: " + this.mapaLocalPrecos;
+    	return super.toString() + ", Preco por quilo: " + getExibirPrecos();
     }
 }
