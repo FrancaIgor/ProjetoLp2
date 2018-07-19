@@ -1,10 +1,13 @@
 package projeto;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * 
- * @author Victor Braga, 
- * 		   Cleciana Santana
+ * @author Victor Braga, Cleciana Santana
  *
  */
 public class ControllerItens {
@@ -37,12 +40,13 @@ public class ControllerItens {
 	 *            preco do item
 	 * @return retorna o idNumerico desse produto
 	 */
-	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra, double preco) {
+	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
+			double preco) {
 		Item novoItemQtd;
 
 		try {
 			novoItemQtd = new ItemPorQuantidade(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
-			
+
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
@@ -72,7 +76,7 @@ public class ControllerItens {
 
 		try {
 			novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
-			
+
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
@@ -100,17 +104,16 @@ public class ControllerItens {
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
 		Item novoItemQuilo;
-		
+
 		try {
 			novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
-			
+
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
 		colecaoItens.put(novoItemQuilo.getIdItem(), novoItemQuilo);
 		return novoItemQuilo.getIdItem();
 	}
-
 
 	/**
 	 * Metodo que permite modificar os parametros de um item, exceto seu idNumerico
@@ -124,7 +127,7 @@ public class ControllerItens {
 	 */
 	public void atualizaItem(int idNumerico, String atributo, String novoValor) {
 		Item item = this.colecaoItens.get(idNumerico);
-		
+
 		if (item == null) {
 			throw new NullPointerException("Erro na atualizacao de item: item nao existe.");
 		}
@@ -132,9 +135,10 @@ public class ControllerItens {
 			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
 		}
 		if (novoValor.trim().isEmpty() || novoValor == null) {
-			throw new IllegalArgumentException("Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
+			throw new IllegalArgumentException(
+					"Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
 		}
-		
+
 		switch (atributo) {
 
 		case "nome":
@@ -152,12 +156,12 @@ public class ControllerItens {
 		case "quantidade":
 			if (item instanceof ItemPorQuantidade) {
 				try {
-				int valorInt = Integer.parseInt(novoValor);
-				((ItemPorQuantidade) item).setQuantidade(valorInt);
+					int valorInt = Integer.parseInt(novoValor);
+					((ItemPorQuantidade) item).setQuantidade(valorInt);
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 				}
-				
+
 			}
 			break;
 
@@ -167,19 +171,19 @@ public class ControllerItens {
 				((ItemPorQuantidade) item).setUnidadeDeMedida(novoValor);
 			}
 			break;
-			
+
 		case "unidade":
-			
+
 			if (item instanceof ItemPorUnidade) {
 				try {
 					((ItemPorUnidade) item).setunidade(Integer.parseInt(novoValor));
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 				}
-				
+
 			}
 			break;
-			
+
 		case "kg":
 
 			if (item instanceof ItemPorQuilo) {
@@ -188,10 +192,10 @@ public class ControllerItens {
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 				}
-				
+
 			}
 			break;
-		
+
 		default:
 			throw new IllegalArgumentException("Erro na atualizacao de item: atributo nao existe.");
 
@@ -223,7 +227,7 @@ public class ControllerItens {
 		}
 		try {
 			this.colecaoItens.get(idNumerico).adicionaPreco(localDeCompra, preco);
-			
+
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de preco: " + e.getMessage());
 		}
@@ -238,7 +242,7 @@ public class ControllerItens {
 	 * @return retorna a representacao String do item correspondente ao idNumerico
 	 */
 	public String exibeItem(int idNumerico) {
-		
+
 		String saida = "";
 		if (idNumerico < 0) {
 			throw new IllegalArgumentException("Erro na listagem de item: id invalido.");
@@ -249,7 +253,7 @@ public class ControllerItens {
 		}
 		return auxiliar.toString();
 	}
-	
+
 	/**
 	 * Metodo que recebe o idNumerico do item e atraves dele o deleta do mapa de
 	 * intens cadastrados
@@ -261,28 +265,47 @@ public class ControllerItens {
 		int intIdNumerico = Integer.parseInt(idNumerico);
 		colecaoItens.remove(intIdNumerico);
 	}
+
 	/**
-	 * Possibilita a escolha do tipo do ordenamento que sera aplicado na lista de cenarios cadastrados.
+	 * Possibilita a escolha do tipo do ordenamento que sera aplicado na lista de
+	 * cenarios cadastrados.
 	 *
-	 * @param ordem tipo de ordenamento.
+	 * @param ordem
+	 *            tipo de ordenamento.
 	 */
 	public void alteraOrdem(String ordem) {
 		String erro = "Erro ao alterar ordem: ";
 
-		if (ordem == null) throw new NullPointerException(erro + "Ordem nao pode ser vazia ou nula");
+		if (ordem == null)
+			throw new NullPointerException(erro + "Ordem nao pode ser vazia ou nula");
 		if (ordem.equals(""))
 			throw new IllegalArgumentException(erro + "Ordem nao pode ser vazia ou nula");
 
-		if (ordem.equals("cadastro") || ordem.equals("nome") || ordem.equals("apostas")) this.comparador = ordem;
+		if (ordem.equals("cadastro") || ordem.equals("nome") || ordem.equals("apostas"))
+			this.comparador = ordem;
 
-		else throw new IllegalArgumentException(erro + "Ordem invalida");
+		else
+			throw new IllegalArgumentException(erro + "Ordem invalida");
 
 	}
+
+	/**
+	 * Metodo que recebe o id numerico que identifica e retorna o proprio item
+	 * 
+	 * @param idNumerico
+	 *            inteiro que identifica cada item
+	 * @return retornará o item que eh identificado pelo id.
+	 */
+	public Item getItem(int idNumerico) {
+		return colecaoItens.get(idNumerico);
+	}
+
 	public String getItemPorCategoria() {
-		List<Item> itensOrdenados = new ArrayList<>(colecaoItens.;);
+		Collection<Item> valores = colecaoItens.values();
+		ArrayList<Item> itensOrdenados = new ArrayList<Item>(valores);
 		itensOrdenados.addAll((Collection<? extends Item>) colecaoItens);
 		Collections.sort(itensOrdenados, new ComparatorNome());
-		Collections.sort(itensOrdenados, new ComparatorPreco());;
+		Collections.sort(itensOrdenados, new ComparatorPreco());
 		return itensOrdenados.toString();
 	}
 }

@@ -9,6 +9,8 @@ import easyaccept.EasyAccept;
 public class Facade {
 
 	ControllerItens novoController = new ControllerItens();
+	ControllerListaCompras controllerCompras = new ControllerListaCompras();
+	
 
 	public static void main (String[] args) {
 		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt"};
@@ -143,7 +145,13 @@ public class Facade {
 	 * 
 	 * @return retorna a representacao o item indicado atraves do idnumerico
 	 */
-	public String getItem(int idNumerico) {
+	public Item getItem(int idNumerico) {
 		return this.novoController.getItem(idNumerico);
+	}
+	
+	public void adicionaCompraALista(String descricao, double quantidade, int idNumerico) {
+		Item item = this.novoController.getItem(idNumerico);
+		this.controllerCompras.adicionaCompraALista(descricao, quantidade, item);
+		 
 	}
 }
