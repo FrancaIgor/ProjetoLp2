@@ -39,6 +39,7 @@ public class ControllerItens {
 	 * @param preco
 	 *            preco do item
 	 * @return retorna o idNumerico desse produto
+	 * @throws Exception 
 	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
 			double preco) {
@@ -46,7 +47,8 @@ public class ControllerItens {
 
 		try {
 			novoItemQtd = new ItemPorQuantidade(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
-
+			verificaItemExistente(novoItemQtd);
+			
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
@@ -76,6 +78,7 @@ public class ControllerItens {
 
 		try {
 			novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
+			verificaItemExistente(novoItemUnidade);
 
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
@@ -107,12 +110,26 @@ public class ControllerItens {
 
 		try {
 			novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
+			verificaItemExistente(novoItemQuilo);
 
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
 		colecaoItens.put(novoItemQuilo.getIdItem(), novoItemQuilo);
 		return novoItemQuilo.getIdItem();
+	}
+	
+	/**
+	 * Método auxiliar que verifica se um item já está registrado antes de adicioná-lo ao sistema
+	 * @param item
+	 * 			Objeto do tipo Item
+	 */
+	private void verificaItemExistente(Item item) {
+		for (Item item2 : colecaoItens.values()) {
+			if (item.equals(item2)) {
+				throw new IllegalArgumentException("item ja cadastrado no sistema.");
+			}
+		}
 	}
 
 	/**
@@ -243,7 +260,6 @@ public class ControllerItens {
 	 */
 	public String exibeItem(int idNumerico) {
 
-		String saida = "";
 		if (idNumerico < 0) {
 			throw new IllegalArgumentException("Erro na listagem de item: id invalido.");
 		}

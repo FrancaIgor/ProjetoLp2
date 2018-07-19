@@ -1,13 +1,13 @@
 package projeto;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Set;
-
-import javax.swing.RowFilter.Entry;
-
+/**
+ * 
+ * @author cleciana
+ *
+ */
 public abstract class Item {
 
     private static int idNumerico = 1;
@@ -100,7 +100,6 @@ public abstract class Item {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result + idItem;
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
@@ -115,6 +114,9 @@ public abstract class Item {
 		return saida + ">";
 	}
 
+	/**
+	 * Verifica se dois itens são iguais, baseado em seus nomes e categorias
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -124,12 +126,7 @@ public abstract class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (categoria == null) {
-			if (other.categoria != null)
-				return false;
-		} else if (!categoria.equals(other.categoria))
-			return false;
-		if (idItem != other.idItem)
+		if (categoria != other.categoria)
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
