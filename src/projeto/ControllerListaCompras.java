@@ -32,12 +32,8 @@ public class ControllerListaCompras {
 	 * 			descricao da lista de compras
 	 * @return
 	 */
-	public String pesquisaListaDeCompras(String descricao) {
-		String descricaoLista = null;
-		if (colecaoDeListas.containsKey(descricao)) {
-			descricaoLista = descricao;
-		}
-		return descricaoLista;
+	public String pesquisaListaDeCompras(String descricao, int posicaoItem) {
+		return colecaoDeListas.get(descricao).retornaCompra(posicaoItem);
 	}
 	
 	/**

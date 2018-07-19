@@ -29,6 +29,8 @@ public class ListaDeCompras {
 	 * Após a finalizacao de uma Lista , indica o valor total das compras.
 	 */
 	private double valorFinalCompra;
+	
+	
 	/**
 	 * Construtor, instancia um objeto ListaDECompras. Recebe uma descricao(String).
 	 * 
@@ -136,5 +138,10 @@ public class ListaDeCompras {
 		}
 		return novaCompra.toString();
 	}
+	
+	public String retornaCompra(int posicaoItem) {
+		return colecaoCompras.get(posicaoItem).toString();
+	}
+	
 	
 }
