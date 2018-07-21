@@ -1,8 +1,6 @@
-
-import org.junit.Assert.*;
+package projeto;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,13 +8,16 @@ import projeto.Item;
 import projeto.ItemPorQuantidade;
 import projeto.ItemPorQuilo;
 import projeto.ItemPorUnidade;
-
+/**
+ * Testes de unidade para classe Item e filhas.
+ * 
+ * @author Rostanth
+ */
 public class TesteItem {
 
 	private Item itemQuilo;
 	private Item novoItemQuilo;
 	private Item itemPorQtd;
-	private Item itemPorUnidade;
 	
 	@Before
 	public void CriaItemPorQuilo() {
@@ -63,7 +64,7 @@ public class TesteItem {
 	
 	@Test
 	public void testCriaItemPorUnidade() {
-		ItemPorUnidade ItemPorUnidade = new ItemPorUnidade("Queijo minas Dali", "alimentos industrializados","Baratão",2,2.0); 
+		ItemPorUnidade ItemPorUnidade = new ItemPorUnidade("Queijo minas Dali", "alimentos industrializados",2,"Baratão",2.0); 
 	}
 	
 

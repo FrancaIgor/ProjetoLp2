@@ -4,7 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
+/**
+ * 
+ * @author Cleciana Santana
+ *
+ */
 public class ControllerListaComprasTest {
 
 	ControllerListaCompras controllerListas = new ControllerListaCompras();
@@ -53,9 +57,12 @@ public class ControllerListaComprasTest {
 	public void testAdicionaCompraAListaException() {
 		this.controllerListas.adicionaCompraALista("Feira de Julho", 2, novoItem);
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void testPesquisaItemNaLista() {
-		this.controllerListas.pesquisaItemNaLista("Compras da semana", 2);
+		assertEquals(this.novoItem.toString(), this.controllerListas.getItemLista("Compras da semana", 1));
 	}
 	
 }

@@ -8,6 +8,7 @@ import java.util.Collections;
 /**
  * 
  * @author Victor Braga, Cleciana Santana
+ * 		   Igor Franca
  *
  */
 public class ControllerItens {
@@ -313,7 +314,7 @@ public class ControllerItens {
 	 * @return retornará o item que eh identificado pelo id.
 	 */
 	public Item getItem(int idNumerico) {
-		return colecaoItens.get(idNumerico);
+		return this.colecaoItens.get(idNumerico);
 	}
 
 	public String getItemPorCategoria() {

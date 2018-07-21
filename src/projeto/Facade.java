@@ -3,18 +3,24 @@ package projeto;
 import easyaccept.EasyAccept;
 /**
  * 
- * @author Victor Braga
- *
+ * @author Victor Braga, Cleciana Santana
+ * 		   Igor Franca, Rostanth
  */
 public class Facade {
 
-	ControllerItens novoController = new ControllerItens();
-	ControllerListaCompras controllerCompras = new ControllerListaCompras();
+	/**
+	 * Controller de Itens que podem ser comprados
+	 */
+	ControllerItens controllerDeItens = new ControllerItens();
+	/**
+	 * Controller de ListasDeCompras
+	 */
+	ControllerListaCompras controllerDeListas = new ControllerListaCompras();
 	
 
 	public static void main (String[] args) {
-		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt"};
-		
+		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
+							 "testes/use_case3.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -38,7 +44,7 @@ public class Facade {
 	 * @return retorna o idNumerico desse produto
 	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra, double preco) {
-		return this.novoController.adicionaItemPorQtd(nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
+		return this.controllerDeItens.adicionaItemPorQtd(nome, categoria, qtd, unidadeDeMedida, localDeCompra, preco);
 	}
 
 	/**
@@ -59,7 +65,7 @@ public class Facade {
 	 * @return retorna o int idNumerico que identifica o item.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double kg, String localDeCompra, double preco) {
-		return this.novoController.adicionaItemPorQuilo(nome, categoria, kg, localDeCompra, preco);
+		return this.controllerDeItens.adicionaItemPorQuilo(nome, categoria, kg, localDeCompra, preco);
 	}
 
 	/**
@@ -81,7 +87,7 @@ public class Facade {
 	 * @return retorna o int idNumerico que identifica o item.
 	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		return this.novoController.adicionaItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
+		return this.controllerDeItens.adicionaItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
 	}
 
 	/**
@@ -95,7 +101,7 @@ public class Facade {
 	 *            String que recebe a nova String que se quer alterar.
 	 */
 	public void atualizaItem(int idNumerico, String atributo, String novoValor) {
-		this.novoController.atualizaItem(idNumerico, atributo, novoValor);
+		this.controllerDeItens.atualizaItem(idNumerico, atributo, novoValor);
 	}
 
 	/**
@@ -112,46 +118,149 @@ public class Facade {
 	 *            preco do protudo no local de compra especificado
 	 */
 	public void adicionaPrecoItem(int idNumerico, String localDeCompra, double preco) {
-		this.novoController.adicionaPrecoItem(idNumerico, localDeCompra, preco);
+		this.controllerDeItens.adicionaPrecoItem(idNumerico, localDeCompra, preco);
 	}
 
 	/**
-	 * Metodo que recebe um inteiro idNumerico ( que identifica cada item), e
-	 * atraves desse id retorna a string que representa o item. Alem disso o metodo
-	 * ordena a lista de itens cadastrados por ordem alfabetica
+	 * Metodo que recebe um inteiro idNumerico (que identifica cada item), e
+	 * retorna a string que representa o item. Alem disso o metodo
+	 * ordena a lista de itens por ordem alfabetica.
 	 * 
-	 * @return retorna a representacao o item indicado atraves do idnumerico
+	 * @return retorna a representacao do item indicado atraves do idnumerico.
 	 */
 	public String exibeItem(int idNumerico) {
-		return this.novoController.exibeItem(idNumerico);
+		return this.controllerDeItens.exibeItem(idNumerico);
 	}
 	
 	/**
-	 * Metodo que recebe o idNumerico do item e atraves dele o deleta do mapa de
-	 * intens cadastrados
+	 * Metodo que recebe o idNumerico do item e atraves dele deleta-o do sistema.
 	 * 
 	 * @param idNumerico
 	 *            int que intenfica cada item e eh imutavel.
 	 */
-
 	public void deletaItem(String idNumerico) {
-		this.novoController.deletaItem(idNumerico);
+		this.controllerDeItens.deletaItem(idNumerico);
 	}
 
 	/**
-	 * Metodo que recebe um inteiro idNumerico ( que identifica cada item), e
+	 * Metodo que recebe um inteiro idNumerico (que identifica cada item), e
 	 * atraves desse id retorna a string que representa o item. Alem disso o metodo
 	 * ordena a lista de itens cadastrados por ordem alfabetica
 	 * 
 	 * @return retorna a representacao o item indicado atraves do idnumerico
 	 */
 	public Item getItem(int idNumerico) {
-		return this.novoController.getItem(idNumerico);
+		return this.controllerDeItens.getItem(idNumerico);
 	}
 	
-	public void adicionaCompraALista(String descricao, double quantidade, int idNumerico) {
-		Item item = this.novoController.getItem(idNumerico);
-		this.controllerCompras.adicionaCompraALista(descricao, quantidade, item);
-		 
+	/**
+	 * Metodo que cria uma lista de compras recebendo sua descricao e adiciona essa
+	 * lista à uma colecao de listas. Lanca uma excecao caso a descricao seja nula ou vazia.
+	 */
+	public String adicionaListaDeCompras(String descritor) {
+		return this.controllerDeListas.adicionaListaDeCompras(descritor);
 	}
+	
+	/**
+	 * Método que retorna representacao String de uma compra caso esta esteja
+	 * cadastrada na Lista
+	 * 
+	 * @param descricao
+	 * 			Descricao da Lista que pode conter a compra
+	 * @param idNumerico
+	 * 			ID do Item desejado
+	 * @return
+	 * 			Retorna uma String representacao do Objeto Compra
+	 */
+	public String pesquisaListaDeCompras(String descritorLista) {
+		return this.controllerDeListas.pesquisaListaDeCompras(descritorLista);
+	}
+	
+	/**
+	 * Adiciona uma compra a lista de compras, recebendo sua descricao, um
+	 * objeto Item e a quantidade deste Item na lista. Lanca excecao se o item nao existe.
+	 * 
+	 * @param descricao
+	 * 			Descricao da lista de compras
+	 * @param quantidade
+	 * 			Quantidade de Itens da compra
+	 * @param item
+	 * 			Item a ser comprado
+	 */
+	public void adicionaCompraALista(String descritor, int quantidade, int idItem) {
+		Item item = this.controllerDeItens.getItem(idItem);
+		this.controllerDeListas.adicionaCompraALista(descritor, quantidade, item);
+	}
+	
+	/**
+	 * Retorna representacao String de uma compra caso esta esteja cadastrada na Lista
+	 * 
+	 * @param descricao
+	 * 			Descricao da Lista que pode conter a compra
+	 * @param idNumerico
+	 * 			ID do Item desejado
+	 * @return
+	 * 			Retorna uma String representacao do Objeto Compra
+	 */
+	public String pesquisaCompraEmLista(String descritor, int itemId) {
+		return this.controllerDeListas.pesquisaCompraEmLista(descritor, itemId);
+	}
+	
+	/**
+	 * Metodo que atualiza a quantidade de itens de uma compra. Lanca excecao caso o item
+	 * nao exista ou a operacao recebida seja invalida.
+	 * 
+	 * @param descritorLista
+	 * 			Descritor da lista que contem a compra
+	 * @param itemId
+	 * 			Identificador do Item da compra
+	 * @param operacao
+	 * 			Operacao a ser efetuada na quantidade. Pode ser "adiciona" ou "diminui".
+	 * @param quantidade
+	 * 			Quantidade de Item a ser acrescida ou retirada da compra.
+	 */
+	public void atualizaCompraDeLista(String descritor, int itemId, String operacao, int quantidade) {
+		this.controllerDeListas.atualizaCompraDeLista(descritor, itemId, operacao, quantidade);
+	}
+	
+	/**
+	 * Método que, quando o usuario realiza as compras, finaliza uma lista.
+	 * 
+	 * @param descricao
+	 * 			Descricao da lista de compras
+	 * @param localDeCompra
+	 * 			Estabelecimento em que foram realizadas as compras
+	 * @param valorFinal
+	 * 			Valor Total de todas as compras feitas em um local
+	 */
+	public void finalizarListaDeCompras(String descritor, String localDaCompra, double valorFinalDaCompra) {
+		this.controllerDeListas.finalizarListaDeCompras(descritor, localDaCompra, valorFinalDaCompra);
+	}
+	
+	/**
+	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista
+	 * retorna uma String vazia.
+	 * 
+	 * @param descricao
+	 * 			Descricao da lista de compras
+	 * @param idItem
+	 * 			Id do item associado a compra
+	 */
+	public String getItemLista(String descritor, int idItem) {
+		return this.controllerDeListas.getItemLista(descritor, idItem);
+	}
+
+	/**
+	 * Deleta, da Lista de compras, a que esta associada ao Item recebido.
+	 * 
+	 * @param descritorLista
+	 * 			Descritor da Lista que contem a compra.
+	 * @param itemId
+	 * 			Identificador do Item associado a compra que sera remoivda.
+	 */
+	public void deletaCompraDeLista(String descritor, int itemId) {
+		Item item = this.controllerDeItens.getItem(itemId);
+		this.controllerDeListas.deletaCompraDeLista(descritor, item);
+	}
+
 }
