@@ -12,14 +12,13 @@ import org.junit.Test;
 public class ControllerListaComprasTest {
 
 	ControllerListaCompras controllerListas = new ControllerListaCompras();
-	Item novoItem = new ItemPorUnidade("Farinha de Trigo", "alimento industrializado", 1,
-										"Mercado da esquina", 2.50);
+	Item novoItem = new ItemPorUnidade("Farinha de Trigo", "alimento industrializado", 1, "Mercado da esquina", 2.50);
 	
 	@Before
 	public void setBefore() {
 		this.controllerListas.adicionaListaDeCompras("Feira de Julho");
 		this.controllerListas.adicionaListaDeCompras("Compras da semana");
-		this.controllerListas.adicionaCompraALista("Feira de Julho", 2, novoItem);
+		this.controllerListas.adicionarCompraALista("Feira de Julho", 2, novoItem);
 	}
 	
 	/**
@@ -55,14 +54,7 @@ public class ControllerListaComprasTest {
 	 */
 	@Test (expected=IllegalArgumentException.class)
 	public void testAdicionaCompraAListaException() {
-		this.controllerListas.adicionaCompraALista("Feira de Julho", 2, novoItem);
-	}
-	/**
-	 * 
-	 */
-	@Test
-	public void testPesquisaItemNaLista() {
-		assertEquals(this.novoItem.toString(), this.controllerListas.getItemLista("Compras da semana", 1));
+		this.controllerListas.adicionarCompraALista("Feira de Julho", 2, novoItem);
 	}
 	
 }

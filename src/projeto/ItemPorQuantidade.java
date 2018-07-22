@@ -72,6 +72,6 @@ public class ItemPorQuantidade extends Item {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + ", " + this.quantidade + " " + this.unidadeDeMedida + ", Preco: " + getExibirPrecos();
+		return super.toString() + ", " + this.quantidade + " " + this.unidadeDeMedida + ", Preco: " + exibirPrecos();
 	}
 }

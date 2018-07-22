@@ -20,12 +20,17 @@ public class ControllerListaCompras {
 	 */
 	public String adicionaListaDeCompras(String descricao) {
 		try {
+			if (this.colecaoDeListas.containsKey(descricao)) {
+				throw new IllegalArgumentException("Erro na criacao de lista de compras: Lista já existe.");
+			}
 			ListaDeCompras listaNova = new ListaDeCompras(descricao);
-			colecaoDeListas.put(descricao, listaNova);
-			return listaNova.toString();
+			
+			this.colecaoDeListas.put(descricao, listaNova);
+			
 		} catch (Exception a) {
 			throw new IllegalArgumentException("Erro na criacao de lista de compras: " + a.getMessage());
 		}
+		return this.colecaoDeListas.get(descricao).toString();
 	}
 	
 	/**
@@ -51,11 +56,16 @@ public class ControllerListaCompras {
 	 * @param item
 	 * 			Item a ser comprado
 	 */
-	public void adicionaCompraALista(String descricao, int quantidade, Item item) {
+	public void adicionarCompraALista(String descricao, int quantidade, Item item) {
 		if (item == null) {
 			throw new NullPointerException("Erro na compra de item: item nao existe no sistema.");
 		}
-		colecaoDeListas.get(descricao).adicionarCompra(quantidade, item);
+		ListaDeCompras listaAux = this.colecaoDeListas.get(descricao);
+		
+		if (listaAux.getCompras().containsKey(item.getIdItem())) {
+			throw new IllegalArgumentException("Erro na compra de item: compra ja existe.");
+		}
+		listaAux.adicionarCompra(quantidade, item);
 	}
 	
 	/**

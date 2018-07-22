@@ -43,6 +43,7 @@ public class ListaDeCompras {
 		}
 		this.descricao = descricao;
 		this.data = LocalDateTime.now();
+		this.colecaoCompras = new HashMap<>();
 	}
 
 	/**
@@ -106,7 +107,8 @@ public class ListaDeCompras {
 	 */
 	public void adicionarCompra(int quantidade, Item item) {
 		Compra novaCompra = new Compra(quantidade, item);
-		this.colecaoCompras.put(item.getIdItem(), novaCompra);
+		int chave = item.getIdItem();
+		this.colecaoCompras.put(chave, novaCompra);
 	}
 	
 	/**
@@ -179,6 +181,14 @@ public class ListaDeCompras {
 	 */
 	public void deletaCompra(int identificador) {
 		this.colecaoCompras.remove(identificador);
+	}
+	
+	/**
+	 * Retorna a colecao de compras da Lista
+	 * @return 
+	 */
+	public HashMap<Integer, Compra> getCompras() {
+		return this.colecaoCompras;
 	}
 	
 	/**

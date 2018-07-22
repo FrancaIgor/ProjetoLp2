@@ -65,6 +65,6 @@ public class ItemPorQuilo extends Item {
 	 */
     @Override
     public String toString() {
-    	return super.toString() + ", Preco por quilo: " + getExibirPrecos();
+    	return super.toString() + ", Preco por quilo: " + exibirPrecos();
     }
 }

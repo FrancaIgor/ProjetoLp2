@@ -19,7 +19,7 @@ public class ItemPorUnidade extends Item {
 	 * @param categoria
 	 * 			Categoria de Item
 	 * @param unidade
-	 * 			Quantidadadee de venda do item
+	 * 			Quantidadade de venda do item
 	 * @param localDeCompra
 	 * 			Local onde o Item pode ser comprado
 	 * @param preco
@@ -63,6 +63,6 @@ public class ItemPorUnidade extends Item {
 	 */
     @Override
     public String toString() {
-        return super.toString() + ", Preco: " + getExibirPrecos();
+        return super.toString() + ", Preco: " + exibirPrecos();
     }
 }

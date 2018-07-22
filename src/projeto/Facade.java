@@ -20,7 +20,7 @@ public class Facade {
 
 	public static void main (String[] args) {
 		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
-							 "testes/use_case3.txt"};
+							 "testes/use_case2.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -189,7 +189,7 @@ public class Facade {
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, int idItem) {
 		Item item = this.controllerDeItens.getItem(idItem);
-		this.controllerDeListas.adicionaCompraALista(descritor, quantidade, item);
+		this.controllerDeListas.adicionarCompraALista(descritor, quantidade, item);
 	}
 	
 	/**

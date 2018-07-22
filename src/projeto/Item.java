@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Set;
 /**
  * 
- * @author cleciana
- *
+ * @author Cleciana Santana
+ * 
  */
 public abstract class Item {
 
@@ -90,6 +90,10 @@ public abstract class Item {
         this.nome = nome;
     }
     
+    /**
+     * Retorna uma representacao do objeto no formato
+     * ID. NOME, CATEGORIA
+     */
     @Override
     public String toString() {
     	return this.idItem + ". " + this.nome + ", " + this.categoria;
@@ -104,12 +108,12 @@ public abstract class Item {
 		return result;
 	}
 	
-	public String getExibirPrecos() {
+	public String exibirPrecos() {
 		String saida = "<";
 		Set<java.util.Map.Entry<String, Double>> auxiliar = mapaLocalPrecos.entrySet();
+		
 		for (java.util.Map.Entry<String, Double> entry : auxiliar) {
-			saida += entry.getKey() + ", R$ " + String.format("%.2f",entry.getValue()).replace(".",",") + ";";
-			
+			saida += entry.getKey() + ", R$ " + String.format("%.2f", entry.getValue()).replace(".",",") + ";";
 		}
 		return saida + ">";
 	}
@@ -137,7 +141,7 @@ public abstract class Item {
 	}
 
 	public int getIdItem() {
-		return idItem;
+		return this.idItem;
 	}
 
 }
