@@ -149,7 +149,7 @@ public class Facade {
 	 * 
 	 * @return retorna a representacao o item indicado atraves do idnumerico
 	 */
-	public Item getItem(int idNumerico) {
+	public String getItem(int idNumerico) {
 		return this.controllerDeItens.getItem(idNumerico);
 	}
 	
@@ -168,6 +168,10 @@ public class Facade {
 	
 	public String getItemPorMenorPreco(int posicao) {
 		return this.controllerDeItens.getItemPorMenorPreco(posicao);
+	}
+	
+	public String getItemPorPesquisa(String strPesquisada, int posicao) {
+		return this.controllerDeItens.getItemPorPesquisa(strPesquisada, posicao);
 	}
 	
 	/**
@@ -205,7 +209,7 @@ public class Facade {
 	 * 			Item a ser comprado
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, int idItem) {
-		Item item = this.controllerDeItens.getItem(idItem);
+		Item item = this.controllerDeItens.getColecaoItens().get(idItem);
 		this.controllerDeListas.adicionarCompraALista(descritor, quantidade, item);
 	}
 	
@@ -274,8 +278,8 @@ public class Facade {
 	 * @param itemId
 	 * 			Identificador do Item associado a compra que sera remoivda.
 	 */
-	public void deletaCompraDeLista(String descritor, int itemId) {
-		Item item = this.controllerDeItens.getItem(itemId);
+	public void deletaCompraDeLista(String descritor, int idItem) {
+		Item item = this.controllerDeItens.getColecaoItens().get(idItem);
 		this.controllerDeListas.deletaCompraDeLista(descritor, item);
 	}
 	

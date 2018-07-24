@@ -276,20 +276,20 @@ public class ControllerItens {
 	}
 
 	/**
-	 * Metodo que recebe o id numerico que identifica e retorna o proprio item
-	 * os itens sao ordenados por ordem alfabetica
+	 * Metodo que recebe o id numerico que identifica e retorna a representacao
+	 * do teim. Os itens sao ordenados por ordem alfabetica
 	 * 
 	 * @param idNumerico
 	 * 			inteiro que identifica cada item
 	 * @return 
 	 * 			retornará o item que eh identificado pelo id.
 	 */
-	public Item getItem(int idNumerico) {
+	public String getItem(int idNumerico) {
 		Collection<Item> valores = colecaoItens.values();
 		ArrayList<Item> itens = new ArrayList<Item>(valores);
 		Collections.sort(itens);
 		
-		return this.colecaoItens.get(idNumerico);
+		return itens.get(idNumerico).toString();
 	}
 
 	/**
@@ -304,33 +304,63 @@ public class ControllerItens {
 	 * 			Representacao String do item
 	 */
 	public String getItemPorCategoria(String categoria, int posicao) {
-
+		if (posicao < 0) {
+			throw new IllegalArgumentException("Erro na pesquisa por categoria: posicao invalida.");
+		}
 		ArrayList<Item> itensCategoria = new ArrayList<>();	
 		for (Item item : colecaoItens.values()) {
 			
-			if (item.getCategoria().equals(categoria)) {
+			if (item.getCategoria().equalsIgnoreCase(categoria)) {
 				itensCategoria.add(item);
 			}
 		}
-		Collections.sort(itensCategoria, new ComparatorNome());
+		Collections.sort(itensCategoria);
 		
-		if (itensCategoria.get(posicao) == null) {
+		if (posicao >= itensCategoria.size()) {
 			return "";
 		}
 		return itensCategoria.get(posicao).toString();
 	}
 	
 	public String getItemPorMenorPreco(int posicao) {
+		if (posicao < 0) {
+			throw new IllegalArgumentException("Erro na pesquisa por categoria: posicao invalida.");
+		}
 		Collection<Item> valores = colecaoItens.values();
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>(valores);
-		Collections.sort(itensOrdenados, new ComparatorPreco());
 		
-		if (itensOrdenados.get(posicao) == null) {
+		if (posicao >= itensOrdenados.size()) {
 			return "";
 		}
+		Collections.sort(itensOrdenados, new ComparatorPreco());
+
 		return itensOrdenados.get(posicao).toString();
 	}
 	
+	public String getItemPorPesquisa(String strPesquisada, int posicao) {
+		if (posicao < 0) {
+			throw new IllegalArgumentException("Erro na pesquisa por categoria: posicao invalida.");
+		}
+		ArrayList<Item> itensRelacionados = new ArrayList<>();
+		
+		for (Item item : this.colecaoItens.values()) {
+			
+			if (item.getNome().toLowerCase().contains(strPesquisada.toLowerCase())) {
+				itensRelacionados.add(item);
+			}
+		}
+		if (posicao >= itensRelacionados.size()) {
+			return "";
+		}
+		Collections.sort(itensRelacionados);
+		
+		return itensRelacionados.get(posicao).toString();
+	}
+	
+	public HashMap<Integer, Item> getColecaoItens() {
+		return this.colecaoItens;
+	}
+
 	public Item getItemInstance(int idItem) {
 		return colecaoItens.get(idItem);
 	}
