@@ -1,4 +1,5 @@
-package projeto;
+package item;
+
 /**
  * Classe que representa uma Compra, guarda o Item associado a ela uma quantidade desses Itens.
  * 

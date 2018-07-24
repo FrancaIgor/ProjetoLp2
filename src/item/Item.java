@@ -1,6 +1,5 @@
-package projeto;
+package item;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
 /**
@@ -8,17 +7,16 @@ import java.util.Set;
  * @author Cleciana Santana
  * 
  */
-public abstract class Item {
+public abstract class Item implements Comparable<Item> {
 
     private static int idNumerico = 1;
-    protected int idItem;
+    private int idItem;
     protected String nome;
     protected double preco;
     protected CategoriasEnum categoria;
     protected HashMap <String,Double> mapaLocalPrecos;
 
 	public Item(String nome, String categoria, String localDeCompra, double preco){
-		String.valueOf(preco);
 
 		this.setNome(nome);
 		this.setCategoria(categoria);
@@ -28,9 +26,24 @@ public abstract class Item {
 	    adicionaPreco(localDeCompra, preco);
     }
 
-	public abstract double calculaPreco();
+	/**
+	 * Retorna o preco do Item, padrão para ItemPorQuantidade e para ItemPorUnidade.
+	 * 
+	 * @return
+	 * 			Valor de venda do item
+	 */
+	public double calculaPreco() {
+		return this.preco;
+	}
 
-	//método na classe item pra poder adicionar os precos e locais de comra no mapa
+	/**
+	 * Metodo usado para adicionar um local de compra e um preco ao Item
+	 * 
+	 * @param localDeCompra
+	 * 			Estabelecimento em que foi realizada a compra
+	 * @param preco
+	 * 			Custo do item no estabelecimento
+	 */
 	public void adicionaPreco(String localDeCompra, double preco) {
 
 		if (localDeCompra.trim().isEmpty() || localDeCompra == null) {
@@ -40,12 +53,6 @@ public abstract class Item {
 			throw new IllegalArgumentException("preco de item invalido.");
 		}
 		mapaLocalPrecos.put(localDeCompra, preco);
-	}
-	
-	public class nameComparator implements Comparator<Item> {
-        public int compare(final Item item1, final Item item2) {
-        	return item1.getNome().compareToIgnoreCase(item2.getNome());
-        }
 	}
 	
     public double getPreco() {
@@ -83,6 +90,12 @@ public abstract class Item {
         this.preco = preco;
     }
 
+    /**
+     * Altera o nome do item para o nome recebido
+     * 
+     * @param nome
+     * 			String que indica o novo nome de item
+     */
     public void setNome(String nome) {
 		if (nome.trim().isEmpty()|| nome == null) {
 			throw new IllegalArgumentException("nome nao pode ser vazio ou nulo.");
@@ -99,6 +112,9 @@ public abstract class Item {
     	return this.idItem + ". " + this.nome + ", " + this.categoria;
     }
 
+    /**
+     * Gera um inteiro único de cada objeto Item que o identifica.
+     */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,6 +124,12 @@ public abstract class Item {
 		return result;
 	}
 	
+	/**
+	 * Retorna uma string representacao contendo todos os locais de compra e preco associados
+	 * 
+	 * @return
+	 * 			String contendo todos os locais de compra e precos
+	 */
 	public String exibirPrecos() {
 		String saida = "<";
 		Set<java.util.Map.Entry<String, Double>> auxiliar = mapaLocalPrecos.entrySet();
@@ -144,4 +166,9 @@ public abstract class Item {
 		return this.idItem;
 	}
 
+	@Override
+	public int compareTo(Item item) {
+		return this.toString().compareTo(item.toString());
+	}
+	
 }

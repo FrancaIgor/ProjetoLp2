@@ -1,4 +1,4 @@
-package projeto;
+package item;
 /**
  * Classe que representa um objeto Item, do tipo que se compra por Unidade.
  * 
@@ -48,14 +48,6 @@ public class ItemPorUnidade extends Item {
      */
     public int getUnidade() {
     	return unidade;
-    }
-    
-    /**
-     * Calcula e retorna o preco do Item
-     */
-	@Override
-    public double calculaPreco() {
-        return preco;
     }
 
 	/**

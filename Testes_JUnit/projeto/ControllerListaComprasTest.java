@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import item.ControllerListaCompras;
+import item.Item;
+import item.ItemPorUnidade;
 /**
  * 
  * @author Cleciana Santana

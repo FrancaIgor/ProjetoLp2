@@ -1,4 +1,4 @@
-package projeto;
+package item;
 /**
  * Classe que representa um objeto Item, do tipo que se compra por Quilo
  * .
@@ -59,7 +59,7 @@ public class ItemPorQuilo extends Item {
     public double calculaPreco() {
         return preco * peso;
     }
-
+	
 	/**
 	 * Representacao String de um Item por Quilo
 	 */

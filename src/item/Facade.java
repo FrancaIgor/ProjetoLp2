@@ -1,4 +1,4 @@
-package projeto;
+package item;
 
 import easyaccept.EasyAccept;
 /**
@@ -19,7 +19,7 @@ public class Facade {
 	
 
 	public static void main (String[] args) {
-		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
+		args = new String[] {"item.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt"};
 		EasyAccept.main(args);
 	}
@@ -151,6 +151,23 @@ public class Facade {
 	 */
 	public Item getItem(int idNumerico) {
 		return this.controllerDeItens.getItem(idNumerico);
+	}
+	
+	/**
+	 * Metodo que pesquisa e retorna um Item da categoria informada usando seu id.
+	 * Caso o item nao exista retorna: "".
+	 * 
+	 * @param categoria
+	 * @param posicao
+	 * @return
+	 * 			Retorna representacao String do Item.
+	 */
+	public String getItemPorCategoria(String categoria, int posicao) {
+		return this.controllerDeItens.getItemPorCategoria(categoria, posicao);
+	}
+	
+	public String getItemPorMenorPreco(int posicao) {
+		return this.controllerDeItens.getItemPorMenorPreco(posicao);
 	}
 	
 	/**

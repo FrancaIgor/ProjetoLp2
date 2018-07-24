@@ -1,4 +1,4 @@
-package projeto;
+package item;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -11,10 +11,7 @@ import java.util.Collections;
  *
  */
 public class ControllerItens {
-	/**
-	 * Metodo de comparacao para ordenamento.
-	 */
-	private String comparador;
+
 	/**
 	 * Mapa de itens, a chave um inteiro correspondente ao id do item no value.
 	 */
@@ -155,7 +152,6 @@ public class ControllerItens {
 			throw new IllegalArgumentException(
 					"Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
 		}
-
 		switch (atributo) {
 
 		case "nome":
@@ -178,7 +174,6 @@ public class ControllerItens {
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 				}
-
 			}
 			break;
 
@@ -197,7 +192,6 @@ public class ControllerItens {
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 				}
-
 			}
 			break;
 
@@ -209,7 +203,6 @@ public class ControllerItens {
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Erro na atualizacao de item: " + e.getMessage());
 				}
-
 			}
 			break;
 
@@ -283,45 +276,59 @@ public class ControllerItens {
 	}
 
 	/**
-	 * Possibilita a escolha do tipo do ordenamento que sera aplicado na lista de
-	 * cenarios cadastrados.
-	 *
-	 * @param ordem
-	 *            tipo de ordenamento.
-	 */
-	public void alteraOrdem(String ordem) {
-		String erro = "Erro ao alterar ordem: ";
-
-		if (ordem == null)
-			throw new NullPointerException(erro + "Ordem nao pode ser vazia ou nula");
-		if (ordem.equals(""))
-			throw new IllegalArgumentException(erro + "Ordem nao pode ser vazia ou nula");
-
-		if (ordem.equals("cadastro") || ordem.equals("nome") || ordem.equals("apostas"))
-			this.comparador = ordem;
-
-		else
-			throw new IllegalArgumentException(erro + "Ordem invalida");
-
-	}
-
-	/**
 	 * Metodo que recebe o id numerico que identifica e retorna o proprio item
+	 * os itens sao ordenados por ordem alfabetica
 	 * 
 	 * @param idNumerico
-	 *            inteiro que identifica cada item
-	 * @return retornará o item que eh identificado pelo id.
+	 * 			inteiro que identifica cada item
+	 * @return 
+	 * 			retornará o item que eh identificado pelo id.
 	 */
 	public Item getItem(int idNumerico) {
+		Collection<Item> valores = colecaoItens.values();
+		ArrayList<Item> itens = new ArrayList<Item>(valores);
+		Collections.sort(itens);
+		
 		return this.colecaoItens.get(idNumerico);
 	}
 
-	public String getItemPorCategoria() {
+	/**
+	 * Método que ordena os itens da categoria informada por ordem alfabetica. 
+	 * Retorna uma String vazia e item nao existe.
+	 * 
+	 * @param categoria
+	 * 			Categoria a qual o item pertence
+	 * @param posicao
+	 * 			Posicao ocupada pelo item
+	 * @return
+	 * 			Representacao String do item
+	 */
+	public String getItemPorCategoria(String categoria, int posicao) {
+
+		ArrayList<Item> itensCategoria = new ArrayList<>();	
+		for (Item item : colecaoItens.values()) {
+			
+			if (item.getCategoria().equals(categoria)) {
+				itensCategoria.add(item);
+			}
+		}
+		Collections.sort(itensCategoria, new ComparatorNome());
+		
+		if (itensCategoria.get(posicao) == null) {
+			return "";
+		}
+		return itensCategoria.get(posicao).toString();
+	}
+	
+	public String getItemPorMenorPreco(int posicao) {
 		Collection<Item> valores = colecaoItens.values();
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>(valores);
-		itensOrdenados.addAll((Collection<? extends Item>) colecaoItens);
-		Collections.sort(itensOrdenados, new ComparatorNome());
 		Collections.sort(itensOrdenados, new ComparatorPreco());
-		return itensOrdenados.toString();
+		
+		if (itensOrdenados.get(posicao) == null) {
+			return "";
+		}
+		return itensOrdenados.get(posicao).toString();
 	}
+	
 }

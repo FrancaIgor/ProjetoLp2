@@ -1,4 +1,4 @@
-package projeto;
+package item;
 /**
  * Representação da Classe item para itens comprados por quantidade. Ex: 100 gramas
  * 
@@ -40,14 +40,11 @@ public class ItemPorQuantidade extends Item {
 		this.setQuantidade(qtd);
 	}
 
-	 /**
-     * Calcula e retorna o preco do Item
-     */
-	@Override
-	public double calculaPreco() {
-		return preco;
-	}
-
+	/**
+	 * Altera a quantidade 
+	 * 
+	 * @param qtd
+	 */
 	public void setQuantidade(int qtd) {
 		if (qtd < 0) {
 			throw new IllegalArgumentException("valor de quantidade nao pode ser menor que zero.");
@@ -59,10 +56,21 @@ public class ItemPorQuantidade extends Item {
 		this.unidadeDeMedida = novoValor;
 	}
 
+	/**
+	 * Pega o valor que indica a quantidade de venda deste item.
+	 * 
+	 * @return
+	 * 		Valor que indica a quantidade
+	 */
 	public int getQuantidade() {
 		return quantidade;
 	}
 
+	/**
+	 * Pega a string que indica a unidade de medida utilizada neste item.
+	 * @return
+	 * 		String que indica a unidade de medida
+	 */
 	public String getUnidadeDeMedida() {
 		return unidadeDeMedida;
 	}
@@ -74,4 +82,5 @@ public class ItemPorQuantidade extends Item {
 	public String toString() {
 		return super.toString() + ", " + this.quantidade + " " + this.unidadeDeMedida + ", Preco: " + exibirPrecos();
 	}
+
 }

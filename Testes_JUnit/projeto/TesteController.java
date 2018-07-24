@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import projeto.ControllerItens;
-import projeto.Item;
-import projeto.ItemPorQuantidade;
-import projeto.ItemPorQuilo;
-import projeto.ItemPorUnidade;
+import item.ControllerItens;
+import item.Item;
+import item.ItemPorQuantidade;
+import item.ItemPorQuilo;
+import item.ItemPorUnidade;
 /**
  * Classe de testes para ControllerItens
  * 
