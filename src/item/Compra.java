@@ -53,7 +53,7 @@ public class Compra {
 	 * Representacao String de um objeto Compra.
 	 */
 	public String toString() {
-		return this.quantidade + item.toString().substring("".indexOf(". "), "".indexOf(", P"));
+		return this.quantidade + " " + item.getInfo();
 	}
 	
 	public Item getItem() {

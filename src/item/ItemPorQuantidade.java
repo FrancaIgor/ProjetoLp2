@@ -7,7 +7,7 @@ package item;
 public class ItemPorQuantidade extends Item {
 
 	/**
-	 * Quantidadadee de venda do item
+	 * Quantidadade de venda do item
 	 */
 	private int quantidade;
 	/**
@@ -75,6 +75,10 @@ public class ItemPorQuantidade extends Item {
 		return unidadeDeMedida;
 	}
 
+	@Override
+	public String getInfo() {
+		return super.getInfo() + ", " + this.quantidade + " " + this.unidadeDeMedida;
+	}
 	/**
 	 * Representacao String de um Item por Quantidade
 	 */

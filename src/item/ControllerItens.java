@@ -285,6 +285,12 @@ public class ControllerItens {
 	 * 			retornará o item que eh identificado pelo id.
 	 */
 	public String getItem(int idNumerico) {
+		if (idNumerico < 0) {
+			throw new IllegalArgumentException("Erro: posicao invalida.");
+		}
+		if (idNumerico >= colecaoItens.size()) {
+			return "";
+		}
 		Collection<Item> valores = colecaoItens.values();
 		ArrayList<Item> itens = new ArrayList<Item>(valores);
 		Collections.sort(itens);
@@ -306,6 +312,12 @@ public class ControllerItens {
 	public String getItemPorCategoria(String categoria, int posicao) {
 		if (posicao < 0) {
 			throw new IllegalArgumentException("Erro na pesquisa por categoria: posicao invalida.");
+		}
+		try {
+			CategoriasEnum.valueOf(categoria.toUpperCase().replaceAll(" ", "_"));
+			
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Erro na listagem de item: categoria nao existe.");
 		}
 		ArrayList<Item> itensCategoria = new ArrayList<>();	
 		for (Item item : colecaoItens.values()) {
