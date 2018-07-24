@@ -360,4 +360,9 @@ public class ControllerItens {
 	public HashMap<Integer, Item> getColecaoItens() {
 		return this.colecaoItens;
 	}
+
+	public Item getItemInstance(int idItem) {
+		return colecaoItens.get(idItem);
+	}
+	
 }
