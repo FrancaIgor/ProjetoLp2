@@ -20,7 +20,7 @@ public class Facade {
 
 	public static void main (String[] args) {
 		args = new String[] {"item.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
-							 "testes/use_case2.txt"};
+							 "testes/use_case4.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -263,10 +263,9 @@ public class Facade {
 	 * @param idItem
 	 * 			Id do item associado a compra
 	 */
-	public String getItemLista(String descritor, int idItem) {
-		return this.controllerDeListas.getItemLista(descritor, idItem);
+	public void getItemLista(String descritor, int posicao) {
+		this.controllerDeListas.pesquisaCompraEmLista(descritor, posicao);
 	}
-
 	/**
 	 * Deleta, da Lista de compras, a que esta associada ao Item recebido.
 	 * 
@@ -279,5 +278,7 @@ public class Facade {
 		Item item = this.controllerDeItens.getItem(itemId);
 		this.controllerDeListas.deletaCompraDeLista(descritor, item);
 	}
+	
+	
 
 }

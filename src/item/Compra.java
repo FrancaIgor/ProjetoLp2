@@ -55,5 +55,9 @@ public class Compra {
 	public String toString() {
 		return this.quantidade + item.toString().substring("".indexOf(". "), "".indexOf(", P"));
 	}
+	
+	public Item getItem() {
+		return item;
+	}
 
 }

@@ -197,4 +197,17 @@ public class ListaDeCompras {
 	public String toString() {
 		return this.descricao;
 	}
+	
+	public boolean verificaItem(int idItem) {
+		for (Compra compra : colecaoCompras.values()) {
+			if( compra.getItem().getIdItem() == idItem) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
 }

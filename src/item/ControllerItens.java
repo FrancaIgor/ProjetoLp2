@@ -331,4 +331,8 @@ public class ControllerItens {
 		return itensOrdenados.get(posicao).toString();
 	}
 	
+	public Item getItemInstance(int idItem) {
+		return colecaoItens.get(idItem);
+	}
+	
 }

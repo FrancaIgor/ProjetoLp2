@@ -1,5 +1,7 @@
 package item;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * Classe que controla as Listas de Compras criadas, pode adicionar e remover listas e compras, atualizar compras
@@ -45,6 +47,28 @@ public class ControllerListaCompras {
 		throw new NullPointerException("Erro na pesquisa de Lista: Lista não existe.");
 	}
 	
+	public String pesquisaListaDeComprasDataCriacao(LocalDateTime data,int idNumerico) {
+		ArrayList<ListaDeCompras> listasFeitas = new ArrayList<ListaDeCompras>();
+		
+		for (ListaDeCompras L : colecaoDeListas.values()) {
+			if (L.getData().equals(data)) {
+				listasFeitas.add(L);
+			}
+		}
+		
+		return listasFeitas.get(idNumerico).getLocaDaCompra() + listasFeitas.get(idNumerico).getData();
+	}
+	
+	public String pesquisaListaPorIdItem(int idItem, int posicao) {
+		ArrayList<ListaDeCompras> produtosComprados = new ArrayList<ListaDeCompras>();
+		
+		for (ListaDeCompras compras : colecaoDeListas.values()) {
+			if(compras.verificaItem(idItem)) {
+				produtosComprados.add(compras);
+			}
+		}
+		return produtosComprados.get(posicao).getData() + " - " + produtosComprados.get(posicao).getDescricao();
+	}
 	/**
 	 * Método que adiciona uma compra a lista de compras, recebendo sua descricao, um
 	 * objeto Item e a quantidade deste Item na lista. Lanca uma excecao se o item nao existe.
@@ -124,8 +148,11 @@ public class ControllerListaCompras {
 	 * @param idItem
 	 * 			Id do item associado a compra
 	 */
-	public String getItemLista(String descricao, int posicaoItem) {
-		return this.colecaoDeListas.get(descricao).retornaCompra(posicaoItem);
+	public String pesquisaListaDeComprasDescricao(String descricao, int idNumerico) {
+		if (this.colecaoDeListas.containsKey(descricao)) {
+			return this.colecaoDeListas.get(descricao).pesquisaCompra(idNumerico).toString();
+		}
+		throw new IllegalArgumentException("erro");
 	}
 
 	/**
