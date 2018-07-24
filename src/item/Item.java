@@ -168,7 +168,7 @@ public abstract class Item implements Comparable<Item> {
 
 	@Override
 	public int compareTo(Item item) {
-		return this.toString().compareTo(item.toString());
+		return this.getNome().compareTo(item.getNome());
 	}
 	
 }

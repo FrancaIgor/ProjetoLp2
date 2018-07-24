@@ -1,6 +1,7 @@
 package item;
 
 import java.util.HashMap;
+import java.util.Map;
 /**
  * Classe que controla as Listas de Compras criadas, pode adicionar e remover listas e compras, atualizar compras
  * e pesquisar por listas ou compras especificas.
@@ -12,7 +13,7 @@ public class ControllerListaCompras {
 	/**
 	 * Mapa que guarda as Listas cadastradas no sistema.
 	 */
-	HashMap<String, ListaDeCompras> colecaoDeListas = new HashMap<String, ListaDeCompras>();
+	private Map<String, ListaDeCompras> colecaoDeListas = new HashMap<String, ListaDeCompras>();
 
 	/**
 	 * Metodo que cria uma lista de compras recebendo sua descricao e adiciona essa

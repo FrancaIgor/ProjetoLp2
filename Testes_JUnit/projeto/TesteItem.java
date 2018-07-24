@@ -38,7 +38,7 @@ public class TesteItem {
 	
 	@Test
 	public void testidNumerico() {
-		assertEquals(1, itemQuilo.getIdNumerico());
+		assertEquals(1, itemQuilo.getIdItem());
 	}
 	
 	@Test
