@@ -203,9 +203,17 @@ public class ControllerListaCompras {
 		listaAux.deletaCompra(item.getIdItem());
 	}
 
-	public void getItemLista(String descritor, int posicao) {
-		// TODO Auto-generated method stub
+	public String getItemLista(String descritor, int posicao) {
+		Collection<Compra> compras = this.colecaoDeListas.get(descritor).getCompras().values();
+		ArrayList<Compra> lista = new ArrayList<>(compras);
 		
+		if (posicao >= lista.size()) {
+			return "";
+		}
+		
+		Collections.sort(lista, new ComparatorCategoria().thenComparing(new ComparatorNomeCompra()));
+		
+		return lista.get(posicao).toString();
 	}
 	
 	public void geraListasCompras() {

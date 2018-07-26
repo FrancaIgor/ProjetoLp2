@@ -17,7 +17,6 @@ public class Facade {
 	 */
 	ControllerListaCompras controllerDeListas = new ControllerListaCompras();
 	
-
 	public static void main (String[] args) {
 		args = new String[] {"item.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
@@ -269,7 +268,7 @@ public class Facade {
 	 * 			Id do item associado a compra
 	 */
 	public String getItemLista(String descritor, int posicao) {
-		return this.controllerDeListas.pesquisaCompraEmLista(descritor, posicao);
+		return this.controllerDeListas.getItemLista(descritor, posicao);
 	}
 	/**
 	 * Deleta, da Lista de compras, a que esta associada ao Item recebido.
