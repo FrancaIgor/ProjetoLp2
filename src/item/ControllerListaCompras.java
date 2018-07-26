@@ -214,6 +214,7 @@ public class ControllerListaCompras {
 		Collections.sort(lista, new ComparatorCategoria().thenComparing(new ComparatorNomeCompra()));
 		
 		return lista.get(posicao).toString();
+
 	}
 	
 	public void geraListasCompras() {
@@ -226,6 +227,7 @@ public class ControllerListaCompras {
 		Collections.sort(listasDeComprasOrdenadas);
 		listaAutomatica1 = listasDeComprasOrdenadas.get(-1);
 		listaAutomatica1.setLocaDaCompra("Lista automática 1");
+
 	}
 	
 }
