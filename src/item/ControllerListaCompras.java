@@ -2,6 +2,8 @@ package item;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -204,6 +206,18 @@ public class ControllerListaCompras {
 	public void getItemLista(String descritor, int posicao) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void geraListasCompras() {
+		ListaDeCompras listaAutomatica1 = new ListaDeCompras("Lista automática 1");
+		ArrayList<ListaDeCompras> listasDeComprasOrdenadas = new ArrayList<ListaDeCompras>();
+		
+		for (ListaDeCompras L : colecaoDeListas.values()) {
+			listasDeComprasOrdenadas.add(L);
+		}
+		Collections.sort(listasDeComprasOrdenadas);
+		listaAutomatica1 = listasDeComprasOrdenadas.get(-1);
+		listaAutomatica1.setLocaDaCompra("Lista automática 1");
 	}
 	
 }

@@ -21,7 +21,7 @@ public class Facade {
 	public static void main (String[] args) {
 		args = new String[] {"item.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
-							 "testes/use_case3.txt",};
+							 "testes/use_case3.txt","testes/use_case3_exception.txt"};
 		EasyAccept.main(args);
 	}
 	

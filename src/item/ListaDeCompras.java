@@ -9,7 +9,7 @@ import java.util.Map;
  * 
  * @author Victor Braga, Cleciana Santana
  */
-public class ListaDeCompras {
+public class ListaDeCompras implements Comparable<ListaDeCompras> {
 
 	/**
 	 * Mapa de Compras de uma Lista onde o Id de um Item é a chave, e o valor é um objeto Compra
@@ -210,5 +210,11 @@ public class ListaDeCompras {
 	
 	public String getDescricao() {
 		return descricao;
+	}
+
+	@Override
+	public int compareTo(ListaDeCompras lista) {
+		
+		return this.getData().compareTo(lista.getData());
 	}
 }
