@@ -217,4 +217,14 @@ public class ListaDeCompras implements Comparable<ListaDeCompras> {
 		
 		return this.getData().compareTo(lista.getData());
 	}
+	
+	public boolean IdentificaItemComprado(String nomedoItem) {
+		
+		for (Compra itemComprado : colecaoCompras.values()) {
+			if(itemComprado.getNomeItemComprado().equals(nomedoItem)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

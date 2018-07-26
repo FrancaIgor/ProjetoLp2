@@ -59,5 +59,9 @@ public class Compra {
 	public Item getItem() {
 		return item;
 	}
+	
+	public String getNomeItemComprado() {
+		return item.getNome();
+	}
 
 }

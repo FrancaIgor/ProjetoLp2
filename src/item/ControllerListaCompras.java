@@ -217,17 +217,24 @@ public class ControllerListaCompras {
 
 	}
 	
-	public void geraListasCompras() {
+	public void geraListasComprasCaso1() {
 		ListaDeCompras listaAutomatica1 = new ListaDeCompras("Lista automática 1");
-		ArrayList<ListaDeCompras> listasDeComprasOrdenadas = new ArrayList<ListaDeCompras>();
+		ArrayList<ListaDeCompras> listasDeComprasOrdenadas = new ArrayList<ListaDeCompras>(colecaoDeListas.values());
 		
-		for (ListaDeCompras L : colecaoDeListas.values()) {
-			listasDeComprasOrdenadas.add(L);
-		}
 		Collections.sort(listasDeComprasOrdenadas);
 		listaAutomatica1 = listasDeComprasOrdenadas.get(-1);
 		listaAutomatica1.setLocaDaCompra("Lista automática 1");
 
+	}
+	
+	public void geraListasComprasCaso2(String nomeItem) {
+		ArrayList<ListaDeCompras> listaOrdenada = new ArrayList<ListaDeCompras>(colecaoDeListas.values());
+		Collections.sort(listaOrdenada);
+		
+		for (int i = colecaoDeListas.size()-1; i >= 0; i--) {
+			listaOrdenada.get(i).IdentificaItemComprado(nomeItem);
+		}
+		
 	}
 	
 }
