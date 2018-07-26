@@ -2,6 +2,8 @@ package item;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Classe que representa um objeto Lista, guarda e manipula as compras cadastradas no sistema.
  * 
@@ -12,7 +14,7 @@ public class ListaDeCompras {
 	/**
 	 * Mapa de Compras de uma Lista onde o Id de um Item é a chave, e o valor é um objeto Compra
 	 */
-	private HashMap<Integer, Compra> colecaoCompras;
+	private Map<Integer, Compra> colecaoCompras;
 	/**
 	 * Guarda as informacoes data/hora em que a Lista foi criada
 	 */
@@ -107,8 +109,7 @@ public class ListaDeCompras {
 	 */
 	public void adicionarCompra(int quantidade, Item item) {
 		Compra novaCompra = new Compra(quantidade, item);
-		int chave = item.getIdItem();
-		this.colecaoCompras.put(chave, novaCompra);
+		this.colecaoCompras.put(item.getIdItem(), novaCompra);
 	}
 	
 	/**
@@ -121,13 +122,15 @@ public class ListaDeCompras {
 	 * 			Retorna a String representacao da compra.
 	 */
 	public String pesquisaCompra(int idNumerico) {
-		Compra novaCompra = this.colecaoCompras.get(idNumerico);
-		if (novaCompra == null) {
+		
+		if (!verificaItem(idNumerico)) {
 			throw new NullPointerException("compra nao encontrada na lista.");
 		}
 		if (idNumerico < 0) {
 			throw new IllegalArgumentException("item id invalido.");
 		}
+
+		Compra novaCompra = this.colecaoCompras.get(idNumerico);
 		return novaCompra.toString();
 	}
 	
@@ -168,6 +171,9 @@ public class ListaDeCompras {
 			
 		} else if (operacao.equals("diminui")) {
 			compraAux.setQuantidade(compraAux.getQuantidade() - quantidade);
+			if (compraAux.getQuantidade() <= 0) {
+				this.colecaoCompras.remove(itemId);
+			}
 		} else {
 			throw new IllegalArgumentException("operacao invalida.");
 		}		
@@ -187,7 +193,7 @@ public class ListaDeCompras {
 	 * Retorna a colecao de compras da Lista
 	 * @return 
 	 */
-	public HashMap<Integer, Compra> getCompras() {
+	public Map<Integer, Compra> getCompras() {
 		return this.colecaoCompras;
 	}
 	
@@ -199,12 +205,7 @@ public class ListaDeCompras {
 	}
 	
 	public boolean verificaItem(int idItem) {
-		for (Compra compra : colecaoCompras.values()) {
-			if( compra.getItem().getIdItem() == idItem) {
-				return true;
-			}
-		}
-		return false;
+		return this.colecaoCompras.containsKey(idItem);
 	}
 	
 	public String getDescricao() {

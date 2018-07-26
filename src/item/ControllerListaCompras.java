@@ -87,7 +87,7 @@ public class ControllerListaCompras {
 		}
 		ListaDeCompras listaAux = this.colecaoDeListas.get(descricao);
 		
-		if (listaAux.getCompras().containsKey(item.getIdItem())) {
+		if (listaAux.verificaItem(item.getIdItem())) {
 			throw new IllegalArgumentException("Erro na compra de item: compra ja existe.");
 		}
 		listaAux.adicionarCompra(quantidade, item);
@@ -127,11 +127,15 @@ public class ControllerListaCompras {
 	 * 			Retorna uma String representacao do Objeto Compra
 	 */
 	public String pesquisaCompraEmLista(String descricao, int idNumerico) {
-		ListaDeCompras lista = this.colecaoDeListas.get(descricao);
-
 		if (descricao.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo");
 		}
+		
+		ListaDeCompras lista = this.colecaoDeListas.get(descricao);
+		if (lista == null) {
+			throw new NullPointerException("Erro na pesquisa de compra: lista nao encontrada.");
+		}
+		
 		try {
 			String saida = lista.pesquisaCompra(idNumerico);
 			return saida;
@@ -195,6 +199,11 @@ public class ControllerListaCompras {
 			throw new NullPointerException("Erro na exclusao de compra: compra nao encontrada na lista.");
 		}
 		listaAux.deletaCompra(item.getIdItem());
+	}
+
+	public void getItemLista(String descritor, int posicao) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

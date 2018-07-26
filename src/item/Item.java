@@ -161,6 +161,10 @@ public abstract class Item implements Comparable<Item> {
 			return false;
 		return true;
 	}
+	
+	public String getInfo() {
+		return this.nome + ", " + this.categoria;
+	}
 
 	public int getIdItem() {
 		return this.idItem;
