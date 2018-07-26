@@ -71,6 +71,10 @@ public abstract class Item implements Comparable<Item> {
         return this.categoria.toString();
     }
     
+    public CategoriasEnum getCategoriasEnum() {
+        return this.categoria;
+    }
+    
     public void setCategoria(String categoria) {
 		if (categoria.trim().isEmpty() || categoria == null) {
 			throw new IllegalArgumentException("categoria nao pode ser vazia ou nula.");

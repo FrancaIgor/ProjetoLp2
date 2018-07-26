@@ -2,6 +2,8 @@ package item;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -201,9 +203,17 @@ public class ControllerListaCompras {
 		listaAux.deletaCompra(item.getIdItem());
 	}
 
-	public void getItemLista(String descritor, int posicao) {
-		// TODO Auto-generated method stub
+	public String getItemLista(String descritor, int posicao) {
+		Collection<Compra> compras = this.colecaoDeListas.get(descritor).getCompras().values();
+		ArrayList<Compra> lista = new ArrayList<>(compras);
 		
+		if (posicao >= lista.size()) {
+			return "";
+		}
+		
+		Collections.sort(lista, new ComparatorCategoria().thenComparing(new ComparatorNomeCompra()));
+		
+		return lista.get(posicao).toString();
 	}
 	
 }
