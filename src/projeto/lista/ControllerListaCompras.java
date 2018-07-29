@@ -1,4 +1,4 @@
-package item;
+package projeto.lista;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,6 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import projeto.ComparatorCategoria;
+import projeto.ComparatorNomeCompra;
+import projeto.item.Item;
 /**
  * Classe que controla as Listas de Compras criadas, pode adicionar e remover listas e compras, atualizar compras
  * e pesquisar por listas ou compras especificas.
@@ -129,15 +133,18 @@ public class ControllerListaCompras {
 	 * 			Retorna uma String representacao do Objeto Compra
 	 */
 	public String pesquisaCompraEmLista(String descricao, int idNumerico) {
-		if (descricao.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo");
-		}
 		
+		if (descricao.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
+		}
+		if (idNumerico < 0) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: item id invalido.");
+		}
 		ListaDeCompras lista = this.colecaoDeListas.get(descricao);
+		
 		if (lista == null) {
 			throw new NullPointerException("Erro na pesquisa de compra: lista nao encontrada.");
 		}
-		
 		try {
 			String saida = lista.pesquisaCompra(idNumerico);
 			return saida;
@@ -176,6 +183,11 @@ public class ControllerListaCompras {
 	 * 			Quantidade de Item a ser acrescida ou retirada da compra.
 	 */
 	public void atualizaCompraDeLista(String descritorLista, int itemId, String operacao, int quantidade) {
+		
+		if (!operacao.equals("adiciona") && !operacao.equals("diminui")) {
+			
+			throw new IllegalArgumentException("Erro na atualizacao de compra: operacao invalida para atualizacao.");
+		}
 		this.colecaoDeListas.get(descritorLista).atualizaCompra(itemId, operacao, quantidade);
 	}
 	

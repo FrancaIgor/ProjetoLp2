@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import item.Item;
-import item.ItemPorQuantidade;
-import item.ItemPorQuilo;
-import item.ItemPorUnidade;
+import projeto.item.Item;
+import projeto.item.ItemPorQuantidade;
+import projeto.item.ItemPorQuilo;
+import projeto.item.ItemPorUnidade;
 /**
  * Testes de unidade para classe Item e filhas.
  * 

@@ -1,6 +1,9 @@
-package item;
+package projeto;
 
 import easyaccept.EasyAccept;
+import projeto.item.ControllerItens;
+import projeto.item.Item;
+import projeto.lista.ControllerListaCompras;
 /**
  * 
  * @author Victor Braga, Cleciana Santana
@@ -18,9 +21,10 @@ public class Facade {
 	ControllerListaCompras controllerDeListas = new ControllerListaCompras();
 	
 	public static void main (String[] args) {
-		args = new String[] {"item.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
+		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
-							 "testes/use_case3.txt",};
+							 "testes/use_case3.txt", "testes/use_case3_exception.txt",
+							 "testes/use_case4.txt"};
 		EasyAccept.main(args);
 	}
 	

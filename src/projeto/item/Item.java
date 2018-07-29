@@ -1,7 +1,9 @@
-package item;
+package projeto.item;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import projeto.CategoriasEnum;
 /**
  * 
  * @author Cleciana Santana
@@ -9,19 +11,17 @@ import java.util.Set;
  */
 public abstract class Item implements Comparable<Item> {
 
-    private static int idNumerico = 1;
     private int idItem;
-    protected String nome;
-    protected double preco;
-    protected CategoriasEnum categoria;
-    protected HashMap <String,Double> mapaLocalPrecos;
+    private String nome;
+    private double preco;
+    private CategoriasEnum categoria;
+    private HashMap <String,Double> mapaLocalPrecos;
 
 	public Item(String nome, String categoria, String localDeCompra, double preco){
 
 		this.setNome(nome);
 		this.setCategoria(categoria);
 		this.setPreco(preco);
-	    this.idItem = getIdNumerico();
 	    this.mapaLocalPrecos = new HashMap<>();
 	    adicionaPreco(localDeCompra, preco);
     }
@@ -62,11 +62,7 @@ public abstract class Item implements Comparable<Item> {
     public String getNome() {
         return this.nome;
     }
-    
-    public static int getIdNumerico() {
-    	return idNumerico++;
-    }
-    
+
     public String getCategoria() {
         return this.categoria.toString();
     }
@@ -106,28 +102,7 @@ public abstract class Item implements Comparable<Item> {
 		}
         this.nome = nome;
     }
-    
-    /**
-     * Retorna uma representacao do objeto no formato
-     * ID. NOME, CATEGORIA
-     */
-    @Override
-    public String toString() {
-    	return this.idItem + ". " + this.nome + ", " + this.categoria;
-    }
 
-    /**
-     * Gera um inteiro único de cada objeto Item que o identifica.
-     */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
-	
 	/**
 	 * Retorna uma string representacao contendo todos os locais de compra e preco associados
 	 * 
@@ -144,6 +119,14 @@ public abstract class Item implements Comparable<Item> {
 		return saida + ">";
 	}
 
+	public int getIdItem() {
+		return this.idItem;
+	}
+	
+	void setId(int id) {
+		this.idItem = id;
+	}
+	
 	/**
 	 * Verifica se dois itens são iguais, baseado em seus nomes e categorias
 	 */
@@ -165,14 +148,31 @@ public abstract class Item implements Comparable<Item> {
 			return false;
 		return true;
 	}
-	
+
+    /**
+     * Gera um inteiro único de cada objeto Item que o identifica.
+     */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
 	public String getInfo() {
 		return this.nome + ", " + this.categoria;
 	}
 
-	public int getIdItem() {
-		return this.idItem;
-	}
+    /**
+     * Retorna uma representacao do objeto no formato
+     * ID. NOME, CATEGORIA
+     */
+    @Override
+    public String toString() {
+    	return this.idItem + ". " + this.nome + ", " + this.categoria;
+    }
 
 	@Override
 	public int compareTo(Item item) {

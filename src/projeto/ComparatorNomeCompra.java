@@ -1,6 +1,8 @@
-package item;
+package projeto;
 
 import java.util.Comparator;
+
+import projeto.lista.Compra;
 
 public class ComparatorNomeCompra implements Comparator<Compra> {
 

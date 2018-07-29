@@ -1,8 +1,10 @@
-package item;
+package projeto.lista;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import projeto.item.Item;
 
 /**
  * Classe que representa um objeto Lista, guarda e manipula as compras cadastradas no sistema.
@@ -164,19 +166,18 @@ public class ListaDeCompras {
 		Compra compraAux = this.colecaoCompras.get(itemId);
 		
 		if (compraAux == null) {
-			throw new NullPointerException("item nao cadastrado.");
+			throw new NullPointerException("Erro na atualizacao de compra: compra nao encontrada na lista.");
 		}
 		if (operacao.equals("adiciona")) {
 			compraAux.setQuantidade(compraAux.getQuantidade() + quantidade);
 			
 		} else if (operacao.equals("diminui")) {
 			compraAux.setQuantidade(compraAux.getQuantidade() - quantidade);
+			
 			if (compraAux.getQuantidade() <= 0) {
 				this.colecaoCompras.remove(itemId);
 			}
-		} else {
-			throw new IllegalArgumentException("operacao invalida.");
-		}		
+		}	
 	}
 
 	/**

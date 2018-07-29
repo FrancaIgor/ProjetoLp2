@@ -1,4 +1,4 @@
-package item;
+package projeto;
 
 public enum CategoriasEnum {
 	

@@ -1,4 +1,4 @@
-package item;
+package projeto.item;
 /**
  * Classe que representa um objeto Item, do tipo que se compra por Unidade.
  * 

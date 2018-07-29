@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import item.ControllerListaCompras;
-import item.Item;
-import item.ItemPorUnidade;
+import projeto.item.Item;
+import projeto.item.ItemPorUnidade;
+import projeto.lista.ControllerListaCompras;
 /**
  * 
  * @author Cleciana Santana

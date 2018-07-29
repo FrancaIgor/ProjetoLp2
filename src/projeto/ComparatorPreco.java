@@ -1,6 +1,8 @@
-package item;
+package projeto;
 
 import java.util.Comparator;
+
+import projeto.item.Item;
 
 public class ComparatorPreco implements Comparator<Item> {
     @Override

@@ -1,4 +1,6 @@
-package item;
+package projeto.lista;
+
+import projeto.item.Item;
 
 /**
  * Classe que representa uma Compra, guarda o Item associado a ela uma quantidade desses Itens.

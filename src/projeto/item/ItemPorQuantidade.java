@@ -1,4 +1,4 @@
-package item;
+package projeto.item;
 /**
  * Representação da Classe item para itens comprados por quantidade. Ex: 100 gramas
  * 

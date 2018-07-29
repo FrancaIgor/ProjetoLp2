@@ -1,6 +1,10 @@
-package item;
+package projeto.item;
 
 import java.util.HashMap;
+
+import projeto.CategoriasEnum;
+import projeto.ComparatorPreco;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,7 +20,18 @@ public class ControllerItens {
 	 * Mapa de itens, a chave um inteiro correspondente ao id do item no value.
 	 */
 	private HashMap<Integer, Item> colecaoItens = new HashMap<Integer, Item>();
-
+	/**
+	 * 
+	 */
+	private static int idContador = 1;
+	/**
+	 * 
+	 * @return
+	 */
+	private int geraId() {
+		return idContador++;
+	}
+	
 	/**
 	 * 
 	 * Metodo que adiciona um item que se compra com uma quantidade fixa. Ex:
@@ -38,17 +53,16 @@ public class ControllerItens {
 	 * @return retorna o idNumerico desse produto
 	 * @throws Exception 
 	 */
-	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra,
-			double preco) {
-		Item novoItemQtd;
-
+	public int adicionaItemPorQtd(String nome, String categoria, int qtd, String unidadeDeMedida, String localDeCompra, double preco) {
+		Item novoItemQtd; 
 		try {
+			verificaItemExistente(nome, categoria);
 			novoItemQtd = new ItemPorQuantidade(nome, categoria, localDeCompra, unidadeDeMedida, qtd, preco);
-			verificaItemExistente(novoItemQtd);
 			
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
+		novoItemQtd.setId(geraId());
 		colecaoItens.put(novoItemQtd.getIdItem(), novoItemQtd);
 		return novoItemQtd.getIdItem();
 	}
@@ -74,12 +88,13 @@ public class ControllerItens {
 		Item novoItemUnidade;
 
 		try {
+			verificaItemExistente(nome, categoria);
 			novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
-			verificaItemExistente(novoItemUnidade);
 
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
+		novoItemUnidade.setId(geraId());
 		colecaoItens.put(novoItemUnidade.getIdItem(), novoItemUnidade);
 		return novoItemUnidade.getIdItem();
 	}
@@ -106,12 +121,13 @@ public class ControllerItens {
 		Item novoItemQuilo;
 
 		try {
+			verificaItemExistente(nome, categoria);
 			novoItemQuilo = new ItemPorQuilo(nome, categoria, localDeCompra, kg, preco);
-			verificaItemExistente(novoItemQuilo);
 
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
+		novoItemQuilo.setId(geraId());
 		colecaoItens.put(novoItemQuilo.getIdItem(), novoItemQuilo);
 		return novoItemQuilo.getIdItem();
 	}
@@ -121,9 +137,11 @@ public class ControllerItens {
 	 * @param item
 	 * 			Objeto do tipo Item
 	 */
-	private void verificaItemExistente(Item item) {
-		for (Item item2 : colecaoItens.values()) {
-			if (item.equals(item2)) {
+	private void verificaItemExistente(String nome, String categoria) {
+		for (Item item : colecaoItens.values()) {
+			
+			if (item.getNome().equals(nome) && item.getCategoria().equals(categoria)) {
+				
 				throw new IllegalArgumentException("item ja cadastrado no sistema.");
 			}
 		}

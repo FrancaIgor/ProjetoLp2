@@ -9,8 +9,8 @@ import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 
-import item.ControllerItens;
-import item.Item;
+import projeto.item.ControllerItens;
+import projeto.item.Item;
 
 public class NewItensTest {
 
