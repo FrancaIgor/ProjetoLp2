@@ -1,5 +1,6 @@
 package projeto;
 
+import java.time.LocalDate;
 import easyaccept.EasyAccept;
 import projeto.item.ControllerItens;
 import projeto.item.Item;
@@ -24,10 +25,14 @@ public class Facade {
 		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
 							 "testes/use_case3.txt", "testes/use_case3_exception.txt",
-							 "testes/use_case4.txt"};
+							 "testes/use_case4.txt", "testes/use_case4_exception.txt"};
 		EasyAccept.main(args);
 	}
-	
+
+	public String dataAtual() {
+		return LocalDate.now().toString();
+	}
+
 	/**
 	 * Metodo que adiciona um item que se compra com uma quantidade fixa. Ex:
 	 * Algodão branco 200g
@@ -170,12 +175,60 @@ public class Facade {
 		return this.controllerDeItens.getItemPorCategoria(categoria, posicao);
 	}
 	
+	/**
+	 * Ordena os itens em ordem crescente de precos e busca pelo item com o id indicado.
+	 * 
+	 * @param posicao
+	 * 			posicao em que o item esta apos ordenacao.
+	 * @return
+	 * 			String representacao do item.
+	 */
 	public String getItemPorMenorPreco(int posicao) {
 		return this.controllerDeItens.getItemPorMenorPreco(posicao);
 	}
 	
+	/**
+	 * Retorna todos os itens que contem a string pesquisada no nome.
+	 * 
+	 * @param strPesquisada
+	 * 			string que eh usada para pesquisa
+	 * @param posicao
+	 * 			posicao do item
+	 * @return
+	 * 			String representacao do item, se existir.
+	 */
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
 		return this.controllerDeItens.getItemPorPesquisa(strPesquisada, posicao);
+	}
+	
+	/**
+	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista
+	 * retorna uma String vazia.
+	 * 
+	 * @param descricao
+	 * 			Descricao da lista de compras
+	 * @param idItem
+	 * 			Id do item associado a compra
+	 */
+	public String getItemLista(String descritor, int posicao) {
+		return this.controllerDeListas.getItemLista(descritor, posicao);
+	}
+	
+	/**
+	 * Retorna o descritor das listas criadas na data passada, com a posicao especificada.
+	 * 
+	 * @param data
+	 * @param posicaoLista
+	 * @return
+	 * 			
+	 */
+	public String getItemListaPorData(String data, int posicaoLista) {
+		return this.controllerDeListas.getItemListaPorData(data, posicaoLista);
+	}
+	
+	
+	public String getItemListaPorItem(int id, int posicaoLista) {
+		return this.controllerDeListas.getItemListaPorItem(id, posicaoLista);
 	}
 	
 	/**
@@ -199,6 +252,14 @@ public class Facade {
 	 */
 	public String pesquisaListaDeCompras(String descritorLista) {
 		return this.controllerDeListas.pesquisaListaDeCompras(descritorLista);
+	}
+	
+	public String pesquisaListasDeComprasPorData(String data) {
+		return this.controllerDeListas.pesquisaListaDeComprasPorData(data);
+	}
+	
+	public String pesquisaListasDeComprasPorItem(int id) {
+		return this.controllerDeListas.pesquisaListasDeComprasPorItem(id);
 	}
 	
 	/**
@@ -263,18 +324,6 @@ public class Facade {
 	}
 	
 	/**
-	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista
-	 * retorna uma String vazia.
-	 * 
-	 * @param descricao
-	 * 			Descricao da lista de compras
-	 * @param idItem
-	 * 			Id do item associado a compra
-	 */
-	public String getItemLista(String descritor, int posicao) {
-		return this.controllerDeListas.getItemLista(descritor, posicao);
-	}
-	/**
 	 * Deleta, da Lista de compras, a que esta associada ao Item recebido.
 	 * 
 	 * @param descritorLista
@@ -286,7 +335,5 @@ public class Facade {
 		Item item = this.controllerDeItens.getColecaoItens().get(idItem);
 		this.controllerDeListas.deletaCompraDeLista(descritor, item);
 	}
-	
-	
 
 }

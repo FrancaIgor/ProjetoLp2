@@ -1,6 +1,6 @@
 package projeto.lista;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import projeto.item.Item;
  * 
  * @author Victor Braga, Cleciana Santana
  */
-public class ListaDeCompras {
+public class ListaDeCompras implements Comparable<ListaDeCompras> {
 
 	/**
 	 * Mapa de Compras de uma Lista onde o Id de um Item é a chave, e o valor é um objeto Compra
@@ -20,7 +20,7 @@ public class ListaDeCompras {
 	/**
 	 * Guarda as informacoes data/hora em que a Lista foi criada
 	 */
-	private LocalDateTime data;
+	private LocalDate data;
 	/**
 	 * String que descreve uma lista. Ex: 'Feira quinzenal'
 	 */
@@ -46,10 +46,17 @@ public class ListaDeCompras {
 			throw new IllegalArgumentException("descritor nao pode ser vazio ou nulo.");
 		}
 		this.descricao = descricao;
-		this.data = LocalDateTime.now();
+		this.data = LocalDate.now();
 		this.colecaoCompras = new HashMap<>();
 	}
-
+	
+	/**
+	 * Retorna a string descricao da lista.
+	 */
+	public String getDescricao() {
+		return descricao;
+	}
+	
 	/**
 	 * Getter de localDaCompra
 	 * @return
@@ -97,8 +104,19 @@ public class ListaDeCompras {
 	 * @return
 	 * 			Informacoes sobre data/hora de criacao da lista.
 	 */
-	public LocalDateTime getData() {
+	public LocalDate getData() {
 		return data;
+	}
+	
+	/**
+	 * Verifica se um item ja esta cadastrado na lista
+	 * @param idItem
+	 * 			id do item associado a compra
+	 * @return
+	 * 			Boolean, True se o item existe, False caso contrario
+	 */
+	public boolean verificaItem(int idItem) {
+		return this.colecaoCompras.containsKey(idItem);
 	}
 	
 	/**
@@ -197,19 +215,20 @@ public class ListaDeCompras {
 	public Map<Integer, Compra> getCompras() {
 		return this.colecaoCompras;
 	}
-	
+
+	/**
+	 * 
+	 */
+	@Override
+	public int compareTo(ListaDeCompras lista) {
+		return this.descricao.compareToIgnoreCase(lista.descricao);
+	}
+
 	/**
 	 * Retorna a representacao de uma Lista De Compras.
 	 */
 	public String toString() {
 		return this.descricao;
 	}
-	
-	public boolean verificaItem(int idItem) {
-		return this.colecaoCompras.containsKey(idItem);
-	}
-	
-	public String getDescricao() {
-		return descricao;
-	}
+
 }

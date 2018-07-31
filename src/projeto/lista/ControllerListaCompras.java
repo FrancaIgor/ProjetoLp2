@@ -1,6 +1,8 @@
 package projeto.lista;
 
-import java.time.LocalDateTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import projeto.ComparatorCategoria;
+import projeto.ComparatorData;
+import projeto.ComparatorDescrLista;
 import projeto.ComparatorNomeCompra;
 import projeto.item.Item;
 /**
@@ -48,24 +52,39 @@ public class ControllerListaCompras {
 	 * 			descricao da lista de compras
 	 */
 	public String pesquisaListaDeCompras(String descricao) {
+		if (descricao.trim().isEmpty() || descricao == null) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
+		}
 		if (this.colecaoDeListas.containsKey(descricao)) {
 			return descricao;
 		}
-		throw new NullPointerException("Erro na pesquisa de Lista: Lista não existe.");
+		throw new NullPointerException("Erro na pesquisa de compra: lista de compras nao existe.");
 	}
 	
-	public String pesquisaListaDeComprasDataCriacao(LocalDateTime data,int idNumerico) {
+	/**
+	 * 
+	 * @param data
+	 * @param idNumerico
+	 * @return
+	 */
+	public String pesquisaListaDeComprasDataCriacao(LocalDate data,int idNumerico) {
 		ArrayList<ListaDeCompras> listasFeitas = new ArrayList<ListaDeCompras>();
 		
 		for (ListaDeCompras L : colecaoDeListas.values()) {
-			if (L.getData().equals(data)) {
+			if (L.getData() == data) {
 				listasFeitas.add(L);
 			}
 		}
 		
 		return listasFeitas.get(idNumerico).getLocaDaCompra() + listasFeitas.get(idNumerico).getData();
 	}
-	
+
+	/**
+	 * 
+	 * @param idItem
+	 * @param posicao
+	 * @return
+	 */
 	public String pesquisaListaPorIdItem(int idItem, int posicao) {
 		ArrayList<ListaDeCompras> produtosComprados = new ArrayList<ListaDeCompras>();
 		
@@ -76,6 +95,23 @@ public class ControllerListaCompras {
 		}
 		return produtosComprados.get(posicao).getData() + " - " + produtosComprados.get(posicao).getDescricao();
 	}
+
+	/**
+	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista, retorna uma String vazia.
+	 * 
+	 * @param descricao
+	 * 			Descricao da lista de compras
+	 * @param idItem
+	 * 			Id do item associado a compra
+	 */
+	public String pesquisaListaDeComprasDescricao(String descricao, int idNumerico) {
+		
+		if (this.colecaoDeListas.containsKey(descricao)) {
+			return this.colecaoDeListas.get(descricao).pesquisaCompra(idNumerico);
+		}
+		throw new NullPointerException("Erro na pesquisa de lista: lista nao cadastrada.");
+	}
+
 	/**
 	 * Método que adiciona uma compra a lista de compras, recebendo sua descricao, um
 	 * objeto Item e a quantidade deste Item na lista. Lanca uma excecao se o item nao existe.
@@ -155,21 +191,6 @@ public class ControllerListaCompras {
 	}
 
 	/**
-	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista, retorna uma String vazia.
-	 * 
-	 * @param descricao
-	 * 			Descricao da lista de compras
-	 * @param idItem
-	 * 			Id do item associado a compra
-	 */
-	public String pesquisaListaDeComprasDescricao(String descricao, int idNumerico) {
-		if (this.colecaoDeListas.containsKey(descricao)) {
-			return this.colecaoDeListas.get(descricao).pesquisaCompra(idNumerico).toString();
-		}
-		throw new IllegalArgumentException("erro");
-	}
-
-	/**
 	 * Metodo que atualiza a quantidade de itens de uma compra. Lanca excecao caso o item
 	 * nao exista ou a operacao recebida seja invalida.
 	 * 
@@ -215,6 +236,18 @@ public class ControllerListaCompras {
 		listaAux.deletaCompra(item.getIdItem());
 	}
 
+	/**
+	 * Ordena a lista de compra em dois niveis. Primeiro, por categoria, e entre itens de
+	 * mesma categoria, usa a ordem alfabetica para ordenacao. Por ultimo, retorna a compra
+	 * da posicao especificada, se esta existir na lista.
+	 * 
+	 * @param descritor
+	 * 			Descritor da lista onde a compra esta.
+	 * @param posicao
+	 * 			Posicao da compra na lista
+	 * @return
+	 * 			String representacao uma compra na lista
+	 */
 	public String getItemLista(String descritor, int posicao) {
 		Collection<Compra> compras = this.colecaoDeListas.get(descritor).getCompras().values();
 		ArrayList<Compra> lista = new ArrayList<>(compras);
@@ -227,5 +260,117 @@ public class ControllerListaCompras {
 		
 		return lista.get(posicao).toString();
 	}
+
+	/**
+	 * Retorna, dentre as listas criadas na data especificada, a que esta na 
+	 * posicao passada apos ordenacao por ordem alfabetica.
+	 * 
+	 * @param data
+	 * 			data de criacao das listas.
+	 * @param posicaoLista
+	 * 			posicao que a lista ocupa apos ordenacao.
+	 * @return
+	 * 			Retorna a descricao da lista, se existir.
+	 */
+	public String getItemListaPorData(String data, int posicaoLista) {
+
+		ArrayList<ListaDeCompras> listasPorData = new ArrayList<>();		
+		for (ListaDeCompras lista : this.colecaoDeListas.values()) {
+			
+			if (lista.getData().toString().equals(data)) {
+				listasPorData.add(lista);
+			}
+		}
+		Collections.sort(listasPorData);
+		return listasPorData.get(posicaoLista).toString();
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param posicaoLista
+	 * @return
+	 */
+	public String getItemListaPorItem(int id, int posicaoLista) {
+		
+		ArrayList<ListaDeCompras> listas = new ArrayList<>();
+		for (ListaDeCompras lista : this.colecaoDeListas.values()) {
+			
+			if (lista.verificaItem(id)) {
+				listas.add(lista);
+			}
+		}
+		Collections.sort(listas, new ComparatorData().thenComparing(new ComparatorDescrLista()));
+		ListaDeCompras listaDesejada = listas.get(posicaoLista);
+		
+		return listaDesejada.getData().toString() + " - " + listaDesejada.getDescricao();
+	}
+
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public String pesquisaListaDeComprasPorData(String data) {
+		
+		String saida = "";
+		try {
+			if (validaData(data)) {
+				saida = "Esse metodo deveria retornar o que afinal??";
+			}
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: " + e.getLocalizedMessage());
+		}
+		return saida;
+	}
 	
+	/**
+	 * Metodo auxiliar que verifica se uma data eh valida, ou seja, tem o formato dd/MM/yyyy
+	 * 
+	 * @param data
+	 * 			String q representa a data
+	 * @return
+	 *  		True se data eh valida, false caso contrario.
+	 */
+	private boolean validaData(String data) {
+
+		if (data.trim().isEmpty() || data == null) {
+			throw new IllegalArgumentException("data nao pode ser vazia ou nula.");
+		}
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+			sdf.setLenient(false);
+			sdf.parse(data);
+			
+			return true;
+			
+		} catch (ParseException a) {
+			throw new IllegalArgumentException("data em formato invalido, tente dd/MM/yyyy");
+		}
+	}
+	
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String pesquisaListasDeComprasPorItem(int id) {
+
+		if (id < 0) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: id invalido.");
+		}
+		ArrayList<ListaDeCompras> listas = new ArrayList<>();
+		for (ListaDeCompras lista : this.colecaoDeListas.values()) {
+			
+			if (lista.verificaItem(id)) {
+				listas.add(lista);
+			}
+		}
+		if (listas.isEmpty()) {
+			throw new NullPointerException("Erro na pesquisa de compra: compra nao encontrada na lista.");
+		}
+		return listas.toString(); // Seraaar?
+	}
 }

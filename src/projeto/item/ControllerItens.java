@@ -352,6 +352,14 @@ public class ControllerItens {
 		return itensCategoria.get(posicao).toString();
 	}
 	
+	/**
+	 * Ordena os itens em ordem crescente de precos e busca pelo item com o id indicado.
+	 * 
+	 * @param posicao
+	 * 			posicao em que o item esta apos ordenacao.
+	 * @return
+	 * 			String representacao do item.
+	 */
 	public String getItemPorMenorPreco(int posicao) {
 		if (posicao < 0) {
 			throw new IllegalArgumentException("Erro na pesquisa por categoria: posicao invalida.");
