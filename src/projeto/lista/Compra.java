@@ -1,5 +1,7 @@
 package projeto.lista;
 
+import java.io.Serializable;
+
 import projeto.item.Item;
 
 /**
@@ -7,8 +9,12 @@ import projeto.item.Item;
  * 
  * @author Cleciana Santana
  */
-public class Compra {
+public class Compra implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Inteiro que indica a quantidade de itens a ser comprada.
 	 */

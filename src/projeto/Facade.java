@@ -1,38 +1,120 @@
 package projeto;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import easyaccept.EasyAccept;
 import projeto.item.ControllerItens;
 import projeto.item.Item;
 import projeto.lista.ControllerListaCompras;
 /**
- * 
+ *  Classe Facade, delega as operacoes do usuario aos controllers necessarios.
+ *  
  * @author Victor Braga, Cleciana Santana
  * 		   Igor Franca, Rostanth
  */
-public class Facade {
+public class Facade implements Serializable {
 
+	/**
+	 * Arquivo utilizado para escrever e ler os dados do sistema.
+	 */
+	private File data = new File("data.txt");
+	/**
+	 * SerialId
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Controller de Itens que podem ser comprados
 	 */
-	ControllerItens controllerDeItens = new ControllerItens();
+	private ControllerItens controllerDeItens = new ControllerItens();
 	/**
 	 * Controller de ListasDeCompras
 	 */
-	ControllerListaCompras controllerDeListas = new ControllerListaCompras();
+	private ControllerListaCompras controllerDeListas = new ControllerListaCompras();
 	
 	public static void main (String[] args) {
 		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
 							 "testes/use_case3.txt", "testes/use_case3_exception.txt",
-							 "testes/use_case4.txt", "testes/use_case4_exception.txt"};
+							 "testes/use_case4.txt", "testes/use_case4_exception.txt",
+							 "testes/use_case7.txt"};
+		
 		EasyAccept.main(args);
 	}
 
+	/**
+	 * Retorna o controller de itens, metodo auxiliar usado na inicializacao do sistema.
+	 */
+	private ControllerItens getControllerItens() {
+		return this.controllerDeItens;
+	}
+	
+	/**
+	 * Retorna o controller de Listas de Compras, metodo auxiliar usado na inicializacao do sistema.
+	 */
+	private ControllerListaCompras getControllerLista() {
+		return this.controllerDeListas;
+	}
+	
+	/**
+	 * Metodo que pega a data atual do sistema.
+	 * 
+	 * @return
+	 * 			Retorna a representacao em string da data atual.
+	 */
 	public String dataAtual() {
 		return LocalDate.now().toString();
 	}
 
+	/**
+	 * Le o arquivo data para recuperar os dados salvos da ultima utilizacao do sistema.
+	 */
+	public void iniciaSistema() {
+		try {
+			InputStream is = new FileInputStream(this.data);
+			ObjectInputStream ois = new ObjectInputStream(is);
+			
+			Facade facade = (Facade) ois.readObject();
+			this.controllerDeItens = facade.getControllerItens();
+			this.controllerDeListas = facade.getControllerLista();
+			ois.close();
+			
+		} catch (IOException c) {
+			c.printStackTrace();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Guarda os dados da sessao em um arquivo para serem utilizados na proxima inicializacao.
+	 */
+	public void fechaSistema() {
+		try {
+			OutputStream fw = new FileOutputStream(this.data);
+			ObjectOutputStream oos = new ObjectOutputStream(fw);
+			oos.writeObject(this);
+			oos.close();
+			
+		} catch (Exception f) {
+			f.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Fecha a aplicacao.
+	 */
+	public void quit() {
+		System.exit(0);
+	}
 	/**
 	 * Metodo que adiciona um item que se compra com uma quantidade fixa. Ex:
 	 * Algodão branco 200g
@@ -220,13 +302,18 @@ public class Facade {
 	 * @param data
 	 * @param posicaoLista
 	 * @return
-	 * 			
+	 * 			Descricao da lista que ocupada a posicao informada, se existir.
 	 */
 	public String getItemListaPorData(String data, int posicaoLista) {
 		return this.controllerDeListas.getItemListaPorData(data, posicaoLista);
 	}
 	
-	
+	/**
+	 * 
+	 * @param id
+	 * @param posicaoLista
+	 * @return
+	 */
 	public String getItemListaPorItem(int id, int posicaoLista) {
 		return this.controllerDeListas.getItemListaPorItem(id, posicaoLista);
 	}

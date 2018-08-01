@@ -5,6 +5,7 @@ import java.util.HashMap;
 import projeto.CategoriasEnum;
 import projeto.ComparatorPreco;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,8 +15,12 @@ import java.util.Collections;
  * 		   Igor Franca
  *
  */
-public class ControllerItens {
+public class ControllerItens implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Mapa de itens, a chave um inteiro correspondente ao id do item no value.
 	 */
@@ -374,7 +379,16 @@ public class ControllerItens {
 
 		return itensOrdenados.get(posicao).toString();
 	}
-	
+	/**
+	 * Ordena os itens cadastrados em ordem crescente de precos.
+	 * 
+	 * @param strPesquisada
+	 * 			Descricao da categoria do item.
+	 * @param posicao
+	 * 			posicao que o item ocupa apos ordenacao.
+	 * @return
+	 * 			Retorna a representacao String do item, se existir. Se nao, retorna uma string vazia.
+	 */
 	public String getItemPorPesquisa(String strPesquisada, int posicao) {
 		if (posicao < 0) {
 			throw new IllegalArgumentException("Erro na pesquisa por categoria: posicao invalida.");
@@ -399,6 +413,14 @@ public class ControllerItens {
 		return this.colecaoItens;
 	}
 
+	/**
+	 * Metodo auxiliar pega pegar um item
+	 * 
+	 * @param idItem
+	 * 			id do item
+	 * @return
+	 * 			Retorna a instancia do item.
+	 */
 	public Item getItemInstance(int idItem) {
 		return colecaoItens.get(idItem);
 	}

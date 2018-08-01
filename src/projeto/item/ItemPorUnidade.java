@@ -7,6 +7,10 @@ package projeto.item;
 public class ItemPorUnidade extends Item {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Representa a quantidade minima em que esse Item eh vendido.
 	 */
 	private int unidade;

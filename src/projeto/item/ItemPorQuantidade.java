@@ -7,6 +7,10 @@ package projeto.item;
 public class ItemPorQuantidade extends Item {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Quantidadade de venda do item
 	 */
 	private int quantidade;
