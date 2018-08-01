@@ -1,5 +1,6 @@
 package projeto.lista;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +12,12 @@ import projeto.item.Item;
  * 
  * @author Victor Braga, Cleciana Santana
  */
-public class ListaDeCompras implements Comparable<ListaDeCompras> {
+public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Mapa de Compras de uma Lista onde o Id de um Item é a chave, e o valor é um objeto Compra
 	 */

@@ -1,5 +1,6 @@
 package projeto.item;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -9,9 +10,13 @@ import projeto.CategoriasEnum;
  * @author Cleciana Santana
  * 
  */
-public abstract class Item implements Comparable<Item> {
+public abstract class Item implements Comparable<Item>, Serializable {
 
-    private int idItem;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int idItem;
     private String nome;
     private double preco;
     private CategoriasEnum categoria;

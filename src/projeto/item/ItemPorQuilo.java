@@ -7,6 +7,10 @@ package projeto.item;
 public class ItemPorQuilo extends Item {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Indica o peso, em kg, em que o item é vendido.
 	 */
     private double peso;

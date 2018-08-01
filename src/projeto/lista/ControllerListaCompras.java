@@ -1,5 +1,6 @@
 package projeto.lista;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,8 +21,12 @@ import projeto.item.Item;
  * 
  * @author Victor Braga, Cleciana Santana.
  */
-public class ControllerListaCompras {
+public class ControllerListaCompras implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Mapa que guarda as Listas cadastradas no sistema.
 	 */
@@ -286,10 +291,15 @@ public class ControllerListaCompras {
 	}
 
 	/**
+	 * Retorna, dentre as listas, as que contem compra associada ao item com ID especificado.
+	 * Ordena-as por data e em seguida em ordem alfabetica.
 	 * 
 	 * @param id
+	 * 			ID associado ao item.
 	 * @param posicaoLista
+	 * 			posicao que a lista ocupa apos ordenacao.
 	 * @return
+	 * 			Retorna uma string no formato: Data - DescricaoLista.
 	 */
 	public String getItemListaPorItem(int id, int posicaoLista) {
 		
@@ -307,9 +317,12 @@ public class ControllerListaCompras {
 	}
 
 	/**
+	 * Metodo que procura listas de compra criadas na data especificada.
 	 * 
 	 * @param data
+	 * 			data, no formato dd/MM/yyyy
 	 * @return
+	 * 			Retorna as listas criadas na data.
 	 */
 	public String pesquisaListaDeComprasPorData(String data) {
 		
@@ -325,7 +338,7 @@ public class ControllerListaCompras {
 	}
 	
 	/**
-	 * Metodo auxiliar que verifica se uma data eh valida, ou seja, tem o formato dd/MM/yyyy
+	 * Metodo auxiliar que verifica se uma data eh valida, ou seja, tem o formato dd/MM/yyyy.
 	 * 
 	 * @param data
 	 * 			String q representa a data
