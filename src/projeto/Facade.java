@@ -25,7 +25,8 @@ public class Facade {
 		args = new String[] {"projeto.Facade", "testes/use_case1.txt", "testes/use_case1_exception.txt", 
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
 							 "testes/use_case3.txt", "testes/use_case3_exception.txt",
-							 "testes/use_case4.txt", "testes/use_case4_exception.txt"};
+							 "testes/use_case4.txt", "testes/use_case4_exception.txt",
+							 "testes/use_case5.txt"};
 		EasyAccept.main(args);
 	}
 
@@ -334,6 +335,14 @@ public class Facade {
 	public void deletaCompraDeLista(String descritor, int idItem) {
 		Item item = this.controllerDeItens.getColecaoItens().get(idItem);
 		this.controllerDeListas.deletaCompraDeLista(descritor, item);
+	}
+	
+	public void geraAutomaticaUltimaLista() {
+		controllerDeListas.geraAutomaticaUltimaLista();
+	}
+	
+	public void geraAutomaticaItem(String descritorItem) {
+		controllerDeListas.geraAutomaticaItem(descritorItem);
 	}
 
 }

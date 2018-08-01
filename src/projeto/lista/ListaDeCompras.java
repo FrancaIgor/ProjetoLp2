@@ -57,6 +57,10 @@ public class ListaDeCompras implements Comparable<ListaDeCompras> {
 		return descricao;
 	}
 	
+	public void setDescricao(String novaDescricao) {
+		this.descricao = novaDescricao;
+	}
+	
 	/**
 	 * Getter de localDaCompra
 	 * @return
@@ -106,6 +110,10 @@ public class ListaDeCompras implements Comparable<ListaDeCompras> {
 	 */
 	public LocalDate getData() {
 		return data;
+	}
+	
+	public void setData(LocalDate novaData) {
+		this.data = novaData;
 	}
 	
 	/**
@@ -214,6 +222,19 @@ public class ListaDeCompras implements Comparable<ListaDeCompras> {
 	 */
 	public Map<Integer, Compra> getCompras() {
 		return this.colecaoCompras;
+	}
+	
+	public void setCompras(Map<Integer, Compra> map) {
+		this.colecaoCompras = map;
+	}
+	
+	public boolean verificaDescritor(String descritor) {
+		for (Compra C : colecaoCompras.values()) {
+			if(C.getItem().getNome().equals(descritor)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

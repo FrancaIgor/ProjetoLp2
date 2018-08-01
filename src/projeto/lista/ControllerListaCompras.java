@@ -373,4 +373,40 @@ public class ControllerListaCompras {
 		}
 		return listas.toString(); // Seraaar?
 	}
+	
+	public String geraAutomaticaUltimaLista() {
+		ArrayList<ListaDeCompras> comprasOrdenadasData = new ArrayList<ListaDeCompras>();
+		ComparatorData comparator = new ComparatorData();
+		ListaDeCompras listaAutomatica = new ListaDeCompras("Lista automática 1 ");
+		
+		for (ListaDeCompras compras : colecaoDeListas.values()) {
+			comprasOrdenadasData.add(compras);
+		}
+		
+		Collections.sort(comprasOrdenadasData, comparator);
+		listaAutomatica.setCompras(comprasOrdenadasData.get(comprasOrdenadasData.size()-1).getCompras());
+
+		colecaoDeListas.put(listaAutomatica.getDescricao(), listaAutomatica);
+		return this.colecaoDeListas.get("Lista automática 1 ").toString();
+	}
+	
+	public void geraAutomaticaItem(String descritorItem) {
+		ArrayList<ListaDeCompras> comprasOrdenadas = new ArrayList<ListaDeCompras>();
+		ListaDeCompras novaListaCompras = new ListaDeCompras("Lista automática 2" + LocalDate.now());
+		ComparatorData comparate = new ComparatorData();
+				
+		for (ListaDeCompras compras : colecaoDeListas.values()) {
+			comprasOrdenadas.add(compras);
+		}
+		
+		Collections.sort(comprasOrdenadas, comparate);
+		
+		for(int i = colecaoDeListas.size()-1; i>=0; i--) {
+			if (comprasOrdenadas.get(i).verificaDescritor(descritorItem)) {
+				novaListaCompras.setCompras(comprasOrdenadas.get(i).getCompras());
+				break;
+			}
+		}
+		
+	}
 }
