@@ -12,7 +12,7 @@ import org.junit.Test;
 import projeto.item.ControllerItens;
 import projeto.item.Item;
 
-public class NewItensTest {
+public class OrdenacaoTest {
 
 	ControllerItens itens = new ControllerItens();
 	@Before
@@ -36,11 +36,7 @@ public class NewItensTest {
 		Collection<Item> valores = this.itens.getColecaoItens().values();
 		ArrayList<Item> novosItens = new ArrayList<>(valores);
 		Collections.sort(novosItens);
-	}
-
-	@Test
-	public void testgetIdItem() {
-		// assertEquals(0, this.itens.getItem(0).getIdItem());
+		System.out.println(novosItens);
 	}
 
 	@Test

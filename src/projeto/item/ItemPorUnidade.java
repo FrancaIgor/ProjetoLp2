@@ -7,7 +7,7 @@ package projeto.item;
 public class ItemPorUnidade extends Item {
 	
 	/**
-	 * 
+	 * SerialID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -34,6 +34,13 @@ public class ItemPorUnidade extends Item {
         super(nome, categoria, localDeCompra, preco);      
         this.setunidade(unidade);
     }
+    
+    /**
+     * Retorna um Inteiro que indica a quantidade minima de venda do item
+     */
+    public int getUnidade() {
+    	return unidade;
+    }
 
     /**
      * Altera a quantidade do item para o valor recebido.
@@ -46,14 +53,7 @@ public class ItemPorUnidade extends Item {
 	        }
 		this.unidade = unidade;
 	}
-    
-    /**
-     * Retorna um Inteiro que indica a quantidade minima de venda do item
-     */
-    public int getUnidade() {
-    	return unidade;
-    }
-
+ 
 	/**
 	 * Representacao String de um Item por Unidade
 	 */

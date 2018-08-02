@@ -14,6 +14,7 @@ import projeto.ComparatorCategoria;
 import projeto.ComparatorData;
 import projeto.ComparatorDescrLista;
 import projeto.ComparatorNomeCompra;
+import projeto.ComparatorPrecoLista;
 import projeto.item.Item;
 /**
  * Classe que controla as Listas de Compras criadas, pode adicionar e remover listas e compras, atualizar compras
@@ -24,7 +25,7 @@ import projeto.item.Item;
 public class ControllerListaCompras implements Serializable {
 
 	/**
-	 * 
+	 * SerialID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -65,13 +66,7 @@ public class ControllerListaCompras implements Serializable {
 		}
 		throw new NullPointerException("Erro na pesquisa de compra: lista de compras nao existe.");
 	}
-	
-	/**
-	 * 
-	 * @param data
-	 * @param idNumerico
-	 * @return
-	 */
+//
 	public String pesquisaListaDeComprasDataCriacao(LocalDate data,int idNumerico) {
 		ArrayList<ListaDeCompras> listasFeitas = new ArrayList<ListaDeCompras>();
 		
@@ -84,12 +79,6 @@ public class ControllerListaCompras implements Serializable {
 		return listasFeitas.get(idNumerico).getLocaDaCompra() + listasFeitas.get(idNumerico).getData();
 	}
 
-	/**
-	 * 
-	 * @param idItem
-	 * @param posicao
-	 * @return
-	 */
 	public String pesquisaListaPorIdItem(int idItem, int posicao) {
 		ArrayList<ListaDeCompras> produtosComprados = new ArrayList<ListaDeCompras>();
 		
@@ -100,7 +89,7 @@ public class ControllerListaCompras implements Serializable {
 		}
 		return produtosComprados.get(posicao).getData() + " - " + produtosComprados.get(posicao).getDescricao();
 	}
-
+//
 	/**
 	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista, retorna uma String vazia.
 	 * 
@@ -116,7 +105,33 @@ public class ControllerListaCompras implements Serializable {
 		}
 		throw new NullPointerException("Erro na pesquisa de lista: lista nao cadastrada.");
 	}
+	
+	/**
+	 * Procura por listas que contenham compras com o item associado ao id especificado pelo usuario.
+	 * 
+	 * @param id
+	 * 			id do item
+	 * @return
+	 * 			Todas as listas que contenham compras com o item
+	 */
+	public String pesquisaListasDeComprasPorItem(int id) {
 
+		if (id < 0) {
+			throw new IllegalArgumentException("Erro na pesquisa de compra: id invalido.");
+		}
+		ArrayList<ListaDeCompras> listas = new ArrayList<>();
+		for (ListaDeCompras lista : this.colecaoDeListas.values()) {
+			
+			if (lista.verificaItem(id)) {
+				listas.add(lista);
+			}
+		}
+		if (listas.isEmpty()) {
+			throw new NullPointerException("Erro na pesquisa de compra: compra nao encontrada na lista.");
+		}
+		return listas.toString();
+	}
+	
 	/**
 	 * Método que adiciona uma compra a lista de compras, recebendo sua descricao, um
 	 * objeto Item e a quantidade deste Item na lista. Lanca uma excecao se o item nao existe.
@@ -363,30 +378,12 @@ public class ControllerListaCompras implements Serializable {
 		}
 	}
 	
-
 	/**
 	 * 
-	 * @param id
+	 * @author Rostanth
+	 * 
 	 * @return
 	 */
-	public String pesquisaListasDeComprasPorItem(int id) {
-
-		if (id < 0) {
-			throw new IllegalArgumentException("Erro na pesquisa de compra: id invalido.");
-		}
-		ArrayList<ListaDeCompras> listas = new ArrayList<>();
-		for (ListaDeCompras lista : this.colecaoDeListas.values()) {
-			
-			if (lista.verificaItem(id)) {
-				listas.add(lista);
-			}
-		}
-		if (listas.isEmpty()) {
-			throw new NullPointerException("Erro na pesquisa de compra: compra nao encontrada na lista.");
-		}
-		return listas.toString(); // Seraaar?
-	}
-	
 	public String geraAutomaticaUltimaLista() {
 		ArrayList<ListaDeCompras> comprasOrdenadasData = new ArrayList<ListaDeCompras>();
 		ComparatorData comparator = new ComparatorData();
@@ -402,7 +399,16 @@ public class ControllerListaCompras implements Serializable {
 		colecaoDeListas.put(listaAutomatica.getDescricao(), listaAutomatica);
 		return this.colecaoDeListas.get("Lista automática 1 ").toString();
 	}
-	
+
+	/**
+	 * Gera uma lista de compras usando como base um item de compra especificado pelo usuario.
+	 * A descricao da lista segue o formato "Lista automática 2 dd/MM/yyyy"
+	 * 
+	 * @author Rostanth
+	 * 
+	 * @param descritorItem
+	 * 			
+	 */
 	public void geraAutomaticaItem(String descritorItem) {
 		ArrayList<ListaDeCompras> comprasOrdenadas = new ArrayList<ListaDeCompras>();
 		ListaDeCompras novaListaCompras = new ListaDeCompras("Lista automática 2" + LocalDate.now());
@@ -420,6 +426,88 @@ public class ControllerListaCompras implements Serializable {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * @author Igor Franca
+	 * 
+	 * @param descritor
+	 * @param posicao
+	 * 
+	 * @return
+	 */
+	private Item getItemObjetoLista(String descritor, int posicao) {
+		Collection<Compra> compras = this.colecaoDeListas.get(descritor).getCompras().values();
+		ArrayList<Compra> lista = new ArrayList<>(compras);
+
+		if (posicao >= lista.size()) {
+			return null;
+		}
+
+		Collections.sort(lista, new ComparatorCategoria().thenComparing(new ComparatorNomeCompra()));
+
+		return lista.get(posicao).getItem();
+	}
+	
+	/**
+	 * @author Igor Franca
+	 * 
+	 * @param lista
+	 * 
+	 * @return
+	 */
+	private ArrayList<ListaDeCompras> listaTemp(ListaDeCompras lista) {
+
+		int contador = 0;
+		ArrayList<ListaDeCompras> listasTemp = new ArrayList<>();
+		double valor = 0;
+		for (String local : lista.getLocaisDasCompras()) {
+			listasTemp.add(new ListaDeCompras(local));
+			for (int i = 0; i < lista.getSize(); i++) {
+				if (this.getItemObjetoLista(lista.getDescricao(), i) != null) {
+					if (lista.verificaItem(i)) {
+						Item item = this.getItemObjetoLista(lista.getDescricao(), i);
+						valor += (item.getMapaDeLocalEPrecos().get(local) * lista.getQuantidade(item.getIdItem()));
+						listasTemp.get(contador).adicionarCompra(lista.getQuantidade(item.getIdItem()), item);
+					}
+				}
+			}
+			listasTemp.get(contador).finalizarListaTemporariasDeCompras("temp", (int) (valor * 1000));
+			contador++;
+			valor = 0;
+		}
+		return listasTemp;
+	}
+
+	/**
+	 * 
+	 * @author Igor Franca
+	 *  
+	 * @param descricaoDaLista
+	 * @param posicaoEstabelecimento
+	 * @param posicaoLista
+	 * 
+	 * @return
+	 */
+	public String sugereMelhorEstabelecimento(String descricaoDaLista, int posicaoEstabelecimento, int posicaoLista) {
 		
+		if(descricaoDaLista.trim().equals("")||descricaoDaLista == null||posicaoEstabelecimento < 0||posicaoLista < 0) {
+			throw new IllegalArgumentException("Os campos nao podem ser nulo ou vazios ou e as posicoes menores do que 0.");
+		}
+		try{ 
+			ArrayList<ListaDeCompras> locaisDeCompra = listaTemp(colecaoDeListas.get(descricaoDaLista));
+			locaisDeCompra.sort(new ComparatorPrecoLista());
+			
+			if (posicaoLista == 0) {
+				
+				return String.format("%s: R$ %.2f", locaisDeCompra.get(posicaoEstabelecimento).getLocaDaCompra(),
+				((locaisDeCompra.get(posicaoEstabelecimento).getValorFinalCompra()) / 1000.0));
+			}
+			String resultado = locaisDeCompra.get(posicaoEstabelecimento).pesquisaCompra(posicaoLista - 1);
+			return "- " + resultado;
+		
+		} catch (Exception excecao) {
+			throw new IllegalArgumentException("Faltam dados para informar sobre preços em locais de compras.");
+		}
 	}
 }

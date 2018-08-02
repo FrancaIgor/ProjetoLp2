@@ -2,6 +2,7 @@ package projeto.lista;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import projeto.item.Item;
 public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable {
 
 	/**
-	 * 
+	 * Serial ID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -38,6 +39,9 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	 * Após a finalizacao de uma Lista , indica o valor total das compras.
 	 */
 	private double valorFinalCompra;
+	
+	private int size;
+	private ArrayList<String> locaisDasCompras;
 	
 	
 	/**
@@ -62,6 +66,12 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 		return descricao;
 	}
 	
+	/**
+	 * Atualza a descricao de uma lista de compras, usando o parametro novaDescricao.
+	 * 
+	 * @param novaDescricao
+	 * 			String que eh usada para substituir a descricao atual.
+	 */
 	public void setDescricao(String novaDescricao) {
 		this.descricao = novaDescricao;
 	}
@@ -77,7 +87,9 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 
 	/**
 	 * Setter para locaDaCompra. Lanca uma excecao caso o local de compra seja vazio ou nulo.
+	 * 
 	 * @param locaDaCompra
+	 * 			String que indica o local onde a compra foi realizada.
 	 */
 	public void setLocaDaCompra(String localDaCompra) {
 		if (localDaCompra.trim().isEmpty() || localDaCompra == null) {
@@ -110,17 +122,53 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 
 	/**
 	 * Getter de informacao sobre data/hora de criacao da Lista
+	 * 
 	 * @return
 	 * 			Informacoes sobre data/hora de criacao da lista.
 	 */
 	public LocalDate getData() {
 		return data;
 	}
-	
-	public void setData(LocalDate novaData) {
-		this.data = novaData;
+
+	/**
+	 * @author Igor Franca
+	 * 
+	 * @return
+	 */
+	public int getSize() {
+		return this.size;
 	}
 	
+	/**
+	 * @author Igor Franca
+	 * 
+	 * @param itemid
+	 * 
+	 * @return
+	 */
+	public int getQuantidade(int itemid) {
+		return this.colecaoCompras.get(itemid).getQuantidade();
+	}
+	/**
+	 * @author Igor Franca
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getLocaisDasCompras(){
+		return this.locaisDasCompras;
+	}
+
+	/**
+	 * @author Igor Franca
+	 * 
+	 * @param temp
+	 * @param valor
+	 */
+	public void finalizarListaTemporariasDeCompras(String temp, double valor) {
+		this.descricao = temp;
+		this.valorFinalCompra = valor;
+	}
+
 	/**
 	 * Verifica se um item ja esta cadastrado na lista
 	 * @param idItem
@@ -222,8 +270,9 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	}
 	
 	/**
-	 * Retorna a colecao de compras da Lista
-	 * @return 
+	 * Pega a colecao de compras da Lista
+	 * @return
+	 * 			Um Map que contem as compras da lista
 	 */
 	public Map<Integer, Compra> getCompras() {
 		return this.colecaoCompras;
@@ -243,7 +292,8 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	}
 
 	/**
-	 * 
+	 * Configura a comparacao entre listas usando seus descritores por ordem alfabetica
+	 * sem se importar com maiusculas ou minusculas.
 	 */
 	@Override
 	public int compareTo(ListaDeCompras lista) {

@@ -7,7 +7,7 @@ package projeto.item;
 public class ItemPorQuilo extends Item {
 
 	/**
-	 * 
+	 * SerialID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -47,7 +47,9 @@ public class ItemPorQuilo extends Item {
 
     /**
      * Altera o peso(kg) de um Item por Quilo
+     * 
      * @param peso
+     * 			double, representa o peso do item.
      */
 	public void setPeso(double peso) {
 		if (peso < 0) {
@@ -56,14 +58,6 @@ public class ItemPorQuilo extends Item {
 		this.peso = peso;
 	}
 
-	 /**
-     * Calcula e retorna o preco do Item
-     */
-	@Override
-    public double calculaPreco() {
-        return getPreco() * peso;
-    }
-	
 	/**
 	 * Representacao String de um Item por Quilo
 	 */

@@ -12,7 +12,7 @@ import projeto.item.Item;
 public class Compra implements Serializable {
 
 	/**
-	 * 
+	 * Serial ID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -58,14 +58,20 @@ public class Compra implements Serializable {
 	}
 	
 	/**
+	 * Pega o item associado a compra.
+	 * 
+	 * @return
+	 * 			Objeto item
+	 */
+	public Item getItem() {
+		return item;
+	}
+	
+	/**
 	 * Representacao String de um objeto Compra.
 	 */
 	public String toString() {
 		return this.quantidade + " " + item.getInfo();
-	}
-	
-	public Item getItem() {
-		return item;
 	}
 
 }

@@ -22,7 +22,8 @@ public class TesteItem {
 	@Before
 	public void CriaItemPorQuilo() {
 		ItemPorQuilo item = new ItemPorQuilo("batata","alimentos nao industrializados", "Baratao", 1.50,1.2);
-		ItemPorQuilo novoitem = new ItemPorQuilo("laranja","alimentos nao industrializados", "Baratao",2.30,2.0);
+		assertEquals("", item.toString());
+		// ItemPorQuilo novoitem = new ItemPorQuilo("laranja","alimentos nao industrializados", "Baratao",2.30,2.0);
 	}
 	
 	@Test
@@ -30,12 +31,7 @@ public class TesteItem {
 		assertNotNull(itemQuilo);
 		
 	}
-	@Test
-	public void testeCalculaPreco() {
-		assertEquals(1.50*1.2, itemQuilo.calculaPreco());
-	}
-	
-	
+
 	@Test
 	public void testidNumerico() {
 		assertEquals(1, itemQuilo.getIdItem());
@@ -48,7 +44,7 @@ public class TesteItem {
 	
 	@Test
 	public void testCriaItemPorQtd() {
-		ItemPorQuantidade itemPorQtd = new ItemPorQuantidade("Pasta de dente", "higiene pessoal","Baratão", "ml",300,2.00);
+		itemPorQtd = new ItemPorQuantidade("Pasta de dente", "higiene pessoal","Baratão", "ml",300,2.00);
 		
 	}
 	
@@ -58,13 +54,9 @@ public class TesteItem {
 	}
 	
 	@Test
-	public void testCalculaPrecoItemPorQtd() {
-		assertEquals(2.50, itemPorQtd.calculaPreco());
-	}
-	
-	@Test
 	public void testCriaItemPorUnidade() {
-		ItemPorUnidade ItemPorUnidade = new ItemPorUnidade("Queijo minas Dali", "alimentos industrializados",2,"Baratão",2.0); 
+		ItemPorUnidade ItemPorUnidade = new ItemPorUnidade("Queijo minas Dali", "alimentos industrializados",2,"Baratão",2.0);
+		assertEquals("", ItemPorUnidade.toString());
 	}
 	
 

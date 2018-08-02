@@ -44,12 +44,10 @@ public class Facade implements Serializable {
 							 "testes/use_case2.txt", "testes/use_case2_exception.txt",
 							 "testes/use_case3.txt", "testes/use_case3_exception.txt",
 							 "testes/use_case4.txt", "testes/use_case4_exception.txt",
-<<<<<<< HEAD
-							 "testes/use_case5.txt"};
-=======
+							 "testes/use_case5.txt",
+							 "testes/use_case6.txt", "testes/use_case6_exception.txt",
 							 "testes/use_case7.txt"};
 		
->>>>>>> 804b7e53a894b549f12e151f88b2ad20f04281d2
 		EasyAccept.main(args);
 	}
 
@@ -119,6 +117,7 @@ public class Facade implements Serializable {
 	public void quit() {
 		System.exit(0);
 	}
+	
 	/**
 	 * Metodo que adiciona um item que se compra com uma quantidade fixa. Ex:
 	 * Algodão branco 200g
@@ -313,10 +312,15 @@ public class Facade implements Serializable {
 	}
 	
 	/**
+	 * Retorna, dentre as listas, as que contem compra associada ao item com ID especificado.
+	 * Ordenadas por data e, em segundo plano, por ordem alfabetica.
 	 * 
 	 * @param id
+	 * 			ID associado ao item.
 	 * @param posicaoLista
+	 * 			posicao que a lista ocupa apos ordenacao.
 	 * @return
+	 * 			Retorna uma string no formato: Data - DescricaoLista.
 	 */
 	public String getItemListaPorItem(int id, int posicaoLista) {
 		return this.controllerDeListas.getItemListaPorItem(id, posicaoLista);
@@ -345,10 +349,26 @@ public class Facade implements Serializable {
 		return this.controllerDeListas.pesquisaListaDeCompras(descritorLista);
 	}
 	
+	/**
+	 * Metodo que procura listas de compra criadas na data especificada.
+	 * 
+	 * @param data
+	 * 			data, no formato dd/MM/yyyy
+	 * @return
+	 * 			Retorna as listas criadas na data.
+	 */
 	public String pesquisaListasDeComprasPorData(String data) {
 		return this.controllerDeListas.pesquisaListaDeComprasPorData(data);
 	}
 	
+	/**
+	 * Procura por listas que contenham compras com o item associado ao id especificado pelo usuario.
+	 * 
+	 * @param id
+	 * 			id do item
+	 * @return
+	 * 			Todas as listas que contenham compras com o item
+	 */
 	public String pesquisaListasDeComprasPorItem(int id) {
 		return this.controllerDeListas.pesquisaListasDeComprasPorItem(id);
 	}
@@ -428,11 +448,14 @@ public class Facade implements Serializable {
 	}
 	
 	public void geraAutomaticaUltimaLista() {
-		controllerDeListas.geraAutomaticaUltimaLista();
+		this.controllerDeListas.geraAutomaticaUltimaLista();
 	}
 	
 	public void geraAutomaticaItem(String descritorItem) {
-		controllerDeListas.geraAutomaticaItem(descritorItem);
+		this.controllerDeListas.geraAutomaticaItem(descritorItem);
 	}
-
+	
+	public String sugereMelhorEstabelecimento(String descricaoDaLista,int posicaoEstabelecimento,int posicaoLista) {
+		return controllerDeListas.sugereMelhorEstabelecimento(descricaoDaLista, posicaoEstabelecimento, posicaoLista);
+	}
 }

@@ -3,7 +3,12 @@ package projeto;
 import java.util.Comparator;
 
 import projeto.lista.ListaDeCompras;
+/**
+ * Classe Comparator, usado para ordenar listas de compras pela data de criacao.
+ * 
+ * @author Cleciana Santana
 
+ */
 public class ComparatorData implements Comparator<ListaDeCompras> {
 
 

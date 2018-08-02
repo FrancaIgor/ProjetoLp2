@@ -7,7 +7,7 @@ package projeto.item;
 public class ItemPorQuantidade extends Item {
 
 	/**
-	 * 
+	 * Serial
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -45,9 +45,10 @@ public class ItemPorQuantidade extends Item {
 	}
 
 	/**
-	 * Altera a quantidade 
+	 * Altera a quantidade do item
 	 * 
 	 * @param qtd
+	 * 			quantidade
 	 */
 	public void setQuantidade(int qtd) {
 		if (qtd < 0) {
@@ -56,6 +57,12 @@ public class ItemPorQuantidade extends Item {
 		this.quantidade = qtd;
 	}
 
+	/**
+	 * Atualiza a unidade de medida atual do item
+	 * 
+	 * @param novoValor
+	 * 			String q substitui a unidade atual de medida
+	 */
 	public void setUnidadeDeMedida(String novoValor) {
 		this.unidadeDeMedida = novoValor;
 	}
@@ -79,6 +86,10 @@ public class ItemPorQuantidade extends Item {
 		return unidadeDeMedida;
 	}
 
+	/**
+	 * Metodo auxiliar, retorna informacoes proprias de um ItemPorQuantidade, 
+	 * sobrescreve o metodo getInfo da superclasse Item
+	 */
 	@Override
 	public String getInfo() {
 		return super.getInfo() + ", " + this.quantidade + " " + this.unidadeDeMedida;

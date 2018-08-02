@@ -1,5 +1,10 @@
 package projeto;
 
+/**
+ * Enum de categorias usado na verificacao de categorias valida para criacao e atualizacao de items.
+ * 
+ * @author
+ */
 public enum CategoriasEnum {
 	
 	HIGIENE_PESSOAL("higiene pessoal"), LIMPEZA("limpeza"), ALIMENTO_INDUSTRIALIZADO("alimento industrializado"), ALIMENTO_NAO_INDUSTRIALIZADO("alimento nao industrializado");

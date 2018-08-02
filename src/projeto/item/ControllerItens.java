@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 /**
+ * Classe controller, tem acesso aos itens cadastrados e gerencia-os, podendo
+ * adicionar, atualizar atributos ou deletar itens.
  * 
  * @author Victor Braga, Cleciana Santana
  * 		   Igor Franca
- *
  */
 public class ControllerItens implements Serializable {
 
 	/**
-	 * 
+	 * SerialID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -26,17 +27,32 @@ public class ControllerItens implements Serializable {
 	 */
 	private HashMap<Integer, Item> colecaoItens = new HashMap<Integer, Item>();
 	/**
-	 * 
+	 * Contador usado p setar o id do item caso ele seja criado com sucesso.
 	 */
 	private static int idContador = 1;
+
 	/**
-	 * 
-	 * @return
+	 * Metodo que retorna o valor atual do contador e depois incrementa-o
 	 */
 	private int geraId() {
 		return idContador++;
 	}
 	
+	/**
+	 * Método auxiliar que verifica se um item já está registrado antes de adicioná-lo ao sistema
+	 * @param item
+	 * 			Objeto do tipo Item
+	 */
+	private void verificaItemExistente(String nome, String categoria) {
+		for (Item item : colecaoItens.values()) {
+			
+			if (item.getNome().equals(nome) && item.getCategoria().equals(categoria)) {
+				
+				throw new IllegalArgumentException("item ja cadastrado no sistema.");
+			}
+		}
+	}
+
 	/**
 	 * 
 	 * Metodo que adiciona um item que se compra com uma quantidade fixa. Ex:
@@ -73,38 +89,6 @@ public class ControllerItens implements Serializable {
 	}
 
 	/**
-	 * Metodo que adiciona um item que se compra por unidade. Ex: 1 queijo minas.
-	 * 
-	 * @param nome
-	 *            eh o nome do que descreve o produto
-	 * @param categoria
-	 *            que define sua finalidade Ex: 1 queijo minhas: Alimntos
-	 *            industrializdos
-	 * @param unidade
-	 *            um numero inteiro que diz a quantidade de itens daquele que foi
-	 *            comprada
-	 * @param localDeCompra
-	 *            Local onde o produto foi comprado
-	 * @param preco
-	 *            preco do item
-	 * @return retorna o int idNumerico que identifica o item.
-	 */
-	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
-		Item novoItemUnidade;
-
-		try {
-			verificaItemExistente(nome, categoria);
-			novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
-
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
-		}
-		novoItemUnidade.setId(geraId());
-		colecaoItens.put(novoItemUnidade.getIdItem(), novoItemUnidade);
-		return novoItemUnidade.getIdItem();
-	}
-
-	/**
 	 * 
 	 * 
 	 * Metodo que adiciona um item que se compra por peso. Ex: 200g de carne
@@ -138,18 +122,35 @@ public class ControllerItens implements Serializable {
 	}
 	
 	/**
-	 * Método auxiliar que verifica se um item já está registrado antes de adicioná-lo ao sistema
-	 * @param item
-	 * 			Objeto do tipo Item
+	 * Metodo que adiciona um item que se compra por unidade. Ex: 1 queijo minas.
+	 * 
+	 * @param nome
+	 *            eh o nome do que descreve o produto
+	 * @param categoria
+	 *            que define sua finalidade Ex: 1 queijo minhas: Alimntos
+	 *            industrializdos
+	 * @param unidade
+	 *            um numero inteiro que diz a quantidade de itens daquele que foi
+	 *            comprada
+	 * @param localDeCompra
+	 *            Local onde o produto foi comprado
+	 * @param preco
+	 *            preco do item
+	 * @return retorna o int idNumerico que identifica o item.
 	 */
-	private void verificaItemExistente(String nome, String categoria) {
-		for (Item item : colecaoItens.values()) {
-			
-			if (item.getNome().equals(nome) && item.getCategoria().equals(categoria)) {
-				
-				throw new IllegalArgumentException("item ja cadastrado no sistema.");
-			}
+	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localDeCompra, double preco) {
+		Item novoItemUnidade;
+
+		try {
+			verificaItemExistente(nome, categoria);
+			novoItemUnidade = new ItemPorUnidade(nome, categoria, unidade, localDeCompra, preco);
+
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Erro no cadastro de item: " + e.getMessage());
 		}
+		novoItemUnidade.setId(geraId());
+		colecaoItens.put(novoItemUnidade.getIdItem(), novoItemUnidade);
+		return novoItemUnidade.getIdItem();
 	}
 
 	/**
@@ -409,6 +410,12 @@ public class ControllerItens implements Serializable {
 		return itensRelacionados.get(posicao).toString();
 	}
 	
+	/**
+	 * Usado para pegar os itens cadastrados
+	 * 
+	 * @return
+	 * 			Um Map<id, item>
+	 */
 	public HashMap<Integer, Item> getColecaoItens() {
 		return this.colecaoItens;
 	}
