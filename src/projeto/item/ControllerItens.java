@@ -429,7 +429,11 @@ public class ControllerItens implements Serializable {
 	 * 			Retorna a instancia do item.
 	 */
 	public Item getItemInstance(int idItem) {
-		return colecaoItens.get(idItem);
+		Item item = this.colecaoItens.get(idItem);
+		if (item == null) {
+			throw new NullPointerException();
+		}
+		return item;
 	}
 	
 }
