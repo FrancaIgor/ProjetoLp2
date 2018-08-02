@@ -147,6 +147,12 @@ public class ControllerListaCompras implements Serializable {
 		if (item == null) {
 			throw new NullPointerException("Erro na compra de item: item nao existe no sistema.");
 		}
+		if (descricao.trim().isEmpty() || descricao == null) {
+			throw new IllegalArgumentException("Erro na compra de item: descricao invalida.");
+			
+		} else if (!this.colecaoDeListas.containsKey(descricao)) {
+			throw new IllegalArgumentException("Erro na compra de item: lista nao cadastrada.");
+		}
 		ListaDeCompras listaAux = this.colecaoDeListas.get(descricao);
 		
 		if (listaAux.verificaItem(item.getIdItem())) {
@@ -387,7 +393,7 @@ public class ControllerListaCompras implements Serializable {
 	public String geraAutomaticaUltimaLista() {
 		ArrayList<ListaDeCompras> comprasOrdenadasData = new ArrayList<ListaDeCompras>();
 		ComparatorData comparator = new ComparatorData();
-		ListaDeCompras listaAutomatica = new ListaDeCompras("Lista automática 1 ");
+		ListaDeCompras listaAutomatica = new ListaDeCompras("Lista automatica 1 " + LocalDate.now());
 		
 		for (ListaDeCompras compras : colecaoDeListas.values()) {
 			comprasOrdenadasData.add(compras);
@@ -397,7 +403,7 @@ public class ControllerListaCompras implements Serializable {
 		listaAutomatica.setCompras(comprasOrdenadasData.get(comprasOrdenadasData.size()-1).getCompras());
 
 		colecaoDeListas.put(listaAutomatica.getDescricao(), listaAutomatica);
-		return this.colecaoDeListas.get("Lista automática 1 ").toString();
+		return this.colecaoDeListas.get("Lista automatica 1 ").toString();
 	}
 
 	/**
@@ -411,7 +417,7 @@ public class ControllerListaCompras implements Serializable {
 	 */
 	public void geraAutomaticaItem(String descritorItem) {
 		ArrayList<ListaDeCompras> comprasOrdenadas = new ArrayList<ListaDeCompras>();
-		ListaDeCompras novaListaCompras = new ListaDeCompras("Lista automática 2" + LocalDate.now());
+		ListaDeCompras novaListaCompras = new ListaDeCompras("Lista automatica 2" + LocalDate.now());
 		ComparatorData comparate = new ComparatorData();
 				
 		for (ListaDeCompras compras : colecaoDeListas.values()) {

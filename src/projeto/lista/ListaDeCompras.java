@@ -176,7 +176,7 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	 * @return
 	 * 			Boolean, True se o item existe, False caso contrario
 	 */
-	public boolean verificaItem(int idItem) {
+	boolean verificaItem(int idItem) {
 		return this.colecaoCompras.containsKey(idItem);
 	}
 	
@@ -189,6 +189,9 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	 * 			Item associado a compra.
 	 */
 	public void adicionarCompra(int quantidade, Item item) {
+		if (quantidade < 0) {
+			throw new IllegalArgumentException("Erro na compra de item: quantidade nao pode ser menor que 0");
+		}
 		Compra novaCompra = new Compra(quantidade, item);
 		this.colecaoCompras.put(item.getIdItem(), novaCompra);
 	}
