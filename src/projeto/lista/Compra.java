@@ -48,7 +48,7 @@ public class Compra implements Serializable {
 	/**
 	 * Altera a quantidade de Itens da compra.
 	 * 
-	 * @param quantidade
+	 * @param novaQuantidade
 	 */
 	public void setQuantidade(int novaQuantidade) {
 		if (quantidade < 0) {

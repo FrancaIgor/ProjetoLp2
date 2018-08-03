@@ -6,7 +6,6 @@ import projeto.item.Item;
 /**
  * Classe Comparator, usada para ordenacao de itens em ordem crescente de precos
  * 
- * @author 
  */
 public class ComparatorPreco implements Comparator<Item> {
 	

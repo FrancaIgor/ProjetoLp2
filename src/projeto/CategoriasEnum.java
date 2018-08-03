@@ -3,7 +3,6 @@ package projeto;
 /**
  * Enum de categorias usado na verificacao de categorias valida para criacao e atualizacao de items.
  * 
- * @author
  */
 public enum CategoriasEnum {
 	

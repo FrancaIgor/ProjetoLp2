@@ -40,8 +40,11 @@ public class ControllerItens implements Serializable {
 	
 	/**
 	 * Método auxiliar que verifica se um item já está registrado antes de adicioná-lo ao sistema
-	 * @param item
-	 * 			Objeto do tipo Item
+	 * 
+	 * @param nome
+	 * 		nome do item
+	 * @param categoria
+	 * 			categoria do item
 	 */
 	private void verificaItemExistente(String nome, String categoria) {
 		for (Item item : colecaoItens.values()) {

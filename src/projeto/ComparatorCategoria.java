@@ -6,7 +6,6 @@ import projeto.lista.Compra;
 /**
  * Classe Comparator, usado para ordenar compras por categoria.
  * 
- * @author 
  */
 public class ComparatorCategoria implements Comparator<Compra>{
 

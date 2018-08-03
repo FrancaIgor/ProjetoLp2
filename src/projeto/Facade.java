@@ -290,9 +290,9 @@ public class Facade implements Serializable {
 	 * Retorna a String representacao de uma compra na lista. Caso a compra nao exista
 	 * retorna uma String vazia.
 	 * 
-	 * @param descricao
+	 * @param descritor
 	 * 			Descricao da lista de compras
-	 * @param idItem
+	 * @param posicao
 	 * 			Id do item associado a compra
 	 */
 	public String getItemLista(String descritor, int posicao) {
@@ -338,10 +338,8 @@ public class Facade implements Serializable {
 	 * Método que retorna representacao String de uma compra caso esta esteja
 	 * cadastrada na Lista
 	 * 
-	 * @param descricao
+	 * @param descritorLista
 	 * 			Descricao da Lista que pode conter a compra
-	 * @param idNumerico
-	 * 			ID do Item desejado
 	 * @return
 	 * 			Retorna uma String representacao do Objeto Compra
 	 */
@@ -377,11 +375,11 @@ public class Facade implements Serializable {
 	 * Adiciona uma compra a lista de compras, recebendo sua descricao, um
 	 * objeto Item e a quantidade deste Item na lista. Lanca excecao se o item nao existe.
 	 * 
-	 * @param descricao
+	 * @param descritor
 	 * 			Descricao da lista de compras
 	 * @param quantidade
 	 * 			Quantidade de Itens da compra
-	 * @param item
+	 * @param idItem
 	 * 			Item a ser comprado
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, int idItem) {
@@ -392,9 +390,9 @@ public class Facade implements Serializable {
 	/**
 	 * Retorna representacao String de uma compra caso esta esteja cadastrada na Lista
 	 * 
-	 * @param descricao
+	 * @param descritor
 	 * 			Descricao da Lista que pode conter a compra
-	 * @param idNumerico
+	 * @param itemId
 	 * 			ID do Item desejado
 	 * @return
 	 * 			Retorna uma String representacao do Objeto Compra
@@ -407,7 +405,7 @@ public class Facade implements Serializable {
 	 * Metodo que atualiza a quantidade de itens de uma compra. Lanca excecao caso o item
 	 * nao exista ou a operacao recebida seja invalida.
 	 * 
-	 * @param descritorLista
+	 * @param descritor
 	 * 			Descritor da lista que contem a compra
 	 * @param itemId
 	 * 			Identificador do Item da compra
@@ -423,11 +421,11 @@ public class Facade implements Serializable {
 	/**
 	 * Método que, quando o usuario realiza as compras, finaliza uma lista.
 	 * 
-	 * @param descricao
+	 * @param descritor
 	 * 			Descricao da lista de compras
-	 * @param localDeCompra
+	 * @param localDaCompra
 	 * 			Estabelecimento em que foram realizadas as compras
-	 * @param valorFinal
+	 * @param valorFinalDaCompra
 	 * 			Valor Total de todas as compras feitas em um local
 	 */
 	public void finalizarListaDeCompras(String descritor, String localDaCompra, double valorFinalDaCompra) {
@@ -437,9 +435,9 @@ public class Facade implements Serializable {
 	/**
 	 * Deleta, da Lista de compras, a que esta associada ao Item recebido.
 	 * 
-	 * @param descritorLista
+	 * @param descritor
 	 * 			Descritor da Lista que contem a compra.
-	 * @param itemId
+	 * @param idItem
 	 * 			Identificador do Item associado a compra que sera remoivda.
 	 */
 	public void deletaCompraDeLista(String descritor, int idItem) {

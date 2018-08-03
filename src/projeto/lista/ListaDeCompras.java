@@ -88,7 +88,7 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	/**
 	 * Setter para locaDaCompra. Lanca uma excecao caso o local de compra seja vazio ou nulo.
 	 * 
-	 * @param locaDaCompra
+	 * @param localDaCompra
 	 * 			String que indica o local onde a compra foi realizada.
 	 */
 	public void setLocaDaCompra(String localDaCompra) {
@@ -131,35 +131,33 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	}
 
 	/**
-	 * @author Igor Franca
-	 * 
 	 * @return
+	 * 			tamanho da lista de compras.
 	 */
 	public int getSize() {
 		return this.size;
 	}
 	
 	/**
-	 * @author Igor Franca
 	 * 
 	 * @param itemid
 	 * 
 	 * @return
+	 * 			quantidade do item na lista
 	 */
 	public int getQuantidade(int itemid) {
 		return this.colecaoCompras.get(itemid).getQuantidade();
 	}
 	/**
-	 * @author Igor Franca
 	 * 
 	 * @return
+	 * 			retorna todos os locas de compra dos itens da lista
 	 */
 	public ArrayList<String> getLocaisDasCompras(){
 		return this.locaisDasCompras;
 	}
 
 	/**
-	 * @author Igor Franca
 	 * 
 	 * @param temp
 	 * @param valor

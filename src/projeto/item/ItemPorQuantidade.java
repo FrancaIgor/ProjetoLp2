@@ -26,8 +26,8 @@ public class ItemPorQuantidade extends Item {
 	 * 			Nome do Item
 	 * @param categoria
 	 * 			Categoria de Item
-	 * @param unidade
-	 * 			Quantidadadee de venda do item
+	 * @param qtd
+	 * 			Quantidadade de venda do item
 	 * @param unidadeDeMedida
 	 * 			String que representa qual a unidade de medida usada no item Ex: gramas.
 	 * @param preco

@@ -95,7 +95,7 @@ public class ControllerListaCompras implements Serializable {
 	 * 
 	 * @param descricao
 	 * 			Descricao da lista de compras
-	 * @param idItem
+	 * @param idNumerico
 	 * 			Id do item associado a compra
 	 */
 	public String pesquisaListaDeComprasDescricao(String descricao, int idNumerico) {
@@ -383,13 +383,7 @@ public class ControllerListaCompras implements Serializable {
 			throw new IllegalArgumentException("data em formato invalido, tente dd/MM/yyyy");
 		}
 	}
-	
-	/**
-	 * 
-	 * @author Rostanth
-	 * 
-	 * @return
-	 */
+
 	public String geraAutomaticaUltimaLista() {
 		ArrayList<ListaDeCompras> comprasOrdenadasData = new ArrayList<ListaDeCompras>();
 		ComparatorData comparator = new ComparatorData();
@@ -410,7 +404,7 @@ public class ControllerListaCompras implements Serializable {
 	 * Gera uma lista de compras usando como base um item de compra especificado pelo usuario.
 	 * A descricao da lista segue o formato "Lista automática 2 dd/MM/yyyy"
 	 * 
-	 * @author Rostanth
+	 * by Rostanth
 	 * 
 	 * @param descritorItem
 	 * 			
@@ -435,12 +429,11 @@ public class ControllerListaCompras implements Serializable {
 	}
 
 	/**
-	 * @author Igor Franca
+	 * by Igor Franca
 	 * 
 	 * @param descritor
 	 * @param posicao
 	 * 
-	 * @return
 	 */
 	private Item getItemObjetoLista(String descritor, int posicao) {
 		Collection<Compra> compras = this.colecaoDeListas.get(descritor).getCompras().values();
@@ -455,13 +448,6 @@ public class ControllerListaCompras implements Serializable {
 		return lista.get(posicao).getItem();
 	}
 	
-	/**
-	 * @author Igor Franca
-	 * 
-	 * @param lista
-	 * 
-	 * @return
-	 */
 	private ArrayList<ListaDeCompras> listaTemp(ListaDeCompras lista) {
 
 		int contador = 0;
@@ -486,14 +472,13 @@ public class ControllerListaCompras implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @author Igor Franca
 	 *  
 	 * @param descricaoDaLista
 	 * @param posicaoEstabelecimento
 	 * @param posicaoLista
 	 * 
 	 * @return
+	 * 			.
 	 */
 	public String sugereMelhorEstabelecimento(String descricaoDaLista, int posicaoEstabelecimento, int posicaoLista) {
 		
